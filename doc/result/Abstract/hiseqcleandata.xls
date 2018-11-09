@@ -1,0 +1,3 @@
+Sample Name	Insert Size  (bp)	Reads Length (bp )	Raw Data (Mb)	Adapter (%)	Duplication (%)	N(%)	Filtered Reads (%)	Low Quality Filtered Reads (%)	Clean Data (Mb)
+B37	500	90:90	1,336.14	0.759	0.073	0.008	18.20	9.986	1,093
+ACA_DC	500	90:90	1,336.14	0.759	0.073	0.008	18.20	9.986	1,093

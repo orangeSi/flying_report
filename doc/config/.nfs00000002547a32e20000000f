@@ -1,0 +1,729 @@
+ilikeorange	0		0	ull
+ilikeapple	p		4帮助文档
+
+ilikeorange	1		1	Abstract/HiseqCleandata.xls,Abstract/PacbioCleandata.xls,Abstract/Assembly.stat.xls,Abstract/Assembly.Evaluate.xls,Abstract/Repeat.stat.xls
+ilikeapple	p2		4.1分析方法描述
+
+ilikeorange	2	1	Abstract/HiseqCleandata.xls,Abstract/PacbioCleandata.xls
+ilikeapple	p3		4.1.1数据过滤
+
+ilikeorange	3	1	Abstract/HiseqCleandata.xls
+ilikeapple	p4		4.1.1.1	Illumina Hiseq 4000 平台
+ilikeapple	pbold		原始测序数据
+ilikeapple	pcontent	测序得到的原始图像数据经base calling转化为序列数据，我们称之为raw data或raw reads，结果以FASTQ文件格式存储，包含reads的序列以及碱基的测序质量。在FASTQ格式文件中每个read由四行描述，如下：
+
+ilikeapple	pfasta		@A80GVTABXX:4:1:2587:1979#ACAGTGAT/1
+NTTTGATATGTGTGAGGACGTCTGCAGCGTCACCTTTATCGGCCATGGT
++
+BTTMKZXUUUdddddddddddddddddddddddddddadddddd^WYYU
+
+ilikeapple	pcontent	每个序列共有4行，第1行和第3行是序列名称（有的fq文件为了节省存储空间会省略第三行“＋”后面的序列名称），由测序仪产生；第2行是序列；第4行是序列的测序质量，每个字符对应第2行每个碱基，第四行每个字符对应的ASCII值减去64，即为该碱基的测序质量值，比如c对应的ASCII值为99，那么其对应的碱基质量值是35。从Illumina GA Pipeline v1.5开始，碱基质量值范围为2到41.表4-1 为Illumina HiSeq 4000测序错误率与测序质量值简明对应关系。如果测序错误率用E表示，碱基质量值用sQ表示，则有下列关系：
+
+ilikeapple	pngs		0	config/default/p4-0.png
+ilikeapple	pngdetail	表4-1. Illumina HiSeq 4000 测序错误率与测序质量值简明对应关系
+ilikeapple	table		config/table/qv2ascii.xls
+ilikeapple	pbold		数据过滤和质控
+ilikeapple	pcontent	由于原始测序数据可能包含低质量序列、接头序列等，为了保证信息分析结果的可靠性，我们需要经过一系列数据处理来过滤这些杂质raw reads，从而得到Clean Reads，仍然以FASTQ格式存储(该序列文件可直接用于发表，公共数据库提交等，后续分析都基于此文件)。对原始的测序数据进行如下处理：
+ilikeapple	pfasta		1)	去除质量值连续≤20的碱基数达到一定程度的reads（默认40%，设置为36个）；
+2)	去除含N的碱基数目总和达到一定比例的reads（默认10%，设置为9bp）；
+3)	去除adapter污染（默认adapter序列与read序列有15 bp的overlap，设置为10 bp）；
+4)	去除duplication污染。
+ilikeapple	pngdetail	Illumina HiSeq 4000 数据过滤统计示例:
+ilikeapple	table		config/table/hiseqcleandata.xls
+ilikeapple	pfasta		上面统计表列含义如下：
+1）Sample Name：该样品名称；
+2）Insert Size（bp）：该样品建库插入片段长度；
+3）Reads Length（bp）：该样品测序reads长度；
+4）Raw Data（Mb）：该样品原始测序数据量；
+5）Adapter（%）：过滤掉接头所占的比例；
+6）Duplication（%）：过滤掉重复reads所占的比例；
+7）N（%）：过滤掉含N reads所占的比例；
+8）Filtered Reads (%)：过滤掉所以reads所占的比例；
+9）Low Quality Filtered Reads（%）：过滤掉低质量reads所占的比例；
+10）Clean Data（Mb）：该样品交付的数据大小
+ilikeapple	pbold		碱基组成和碱基质量分析
+ilikeapple	pcontent	对过滤后得到的clean reads进行碱基的组成和质量值分布绘制，从而控制数据质量。图4-1中，T碱基和A碱基的比例不等，质量不合格；图4-2则是碱基组成情况良好的结果。对于碱基质量，图4-3是较差的；而图4-4中大多数碱基质量都大于20，情况较好。若碱基质量不合格，需要重新测序。
+ilikeapple	pngs		0	config/default/p4-1.png
+ilikeapple	pngdetail	图4-1数据的碱基组成情况。X轴上，1-90bp代表read1的碱基位置，91-180bp代表read2的碱基位置。碱基组成平衡的情况下，A、T曲线重合，G、C曲线重合。如果测序中出现不正常的情况，碱基组成就可能不平衡。
+ilikeapple	pngs		0	config/default/p4-2.png
+ilikeapple	pngdetail	图4-2 数据的碱基组成情况。X轴上，1-90bp代表read1的碱基位置，91-180bp代表read2的碱基位置。碱基组成平衡的情况下，A、T曲线重合，G、C曲线重合。这张图显示出较平衡的碱基组成。
+ilikeapple	pngs		0	config/default/p4-3.png
+ilikeapple	pngdetail	图4-3 reads的碱基质量分布。横坐标是分布在read上碱基的位置，纵坐标代表碱基的质量。图中的每个点表示某条read中相应位置的碱基质量值。从整体上看，如果低质量(<20)的碱基比例过高，说明这个lane的测序质量很差，如此图。
+ilikeapple	pngs		0	config/default/p4-4.png
+ilikeapple	pngdetail	图 4-4 reads的碱基质量分布。横坐标是分布在read上碱基的位置，纵坐标代表碱基的质量。图中的每个点表示某条read中相应位置的碱基质量值。从整体上看，如果低质量(<20)的碱基比例较低，说明这个lane的测序质量比较好，如此图。
+ilikeorange	3		1	Abstract/PacbioCleandata.xls
+ilikeapple	p4		4.1.1.2	Pacbio RSII平台
+ilikeapple	pbold		原始测序数据
+ilikeapple	pcontent	PacBio RSII平台测序数据以h5格式保存，h5为二进制文件不能直接编辑查看，需要通过软件转化成fasta序列格式和qual质量文件。
+ilikeapple	pbold		数据过滤和质控
+ilikeapple	pcontent	Pacbio RSII平台原始测序数据中存在大量的接头序列、低质量序列、测序错误序列等，为了得到更精确的组装结果，同样需要对原始的测序数据进行如下处理：
+ilikeapple	pfasta		1）	过滤掉长度小于100bp 的Polymerase reads；
+2）	过滤掉质量小于0.80的Polymerase reads；
+3）	从Polymerase reads 中提取Subreads，过滤掉adapter 序列；
+4）	过滤掉长度小于1000bp的Subreads；
+ilikeapple	pcontent	PacBio RSII数据过滤统计示例：
+ilikeapple	table		config/table/pacbio_cleandata.xls
+ilikeapple	pfasta		上面统计表各列含有如下：
+1）Sample Name：该样品的名称；
+2）Polymerase Reads Number（#）：该样品过滤后Polymerase Reads的数目；
+3）Polymerase Reads Mean Length（bp）：该样品过滤后Polymerase Reads 平均长度；
+4）Polymerase Reads Bases（bp）：该样品过滤后Polymerase Reads 数据量；
+5）Polymerase Reads Quality(#) ：该样品过滤后Polymerase Reads 质量值
+6）Subreads Number（#）：该样品过滤后Subreads 数目；
+7）Subreads Mean Length（bp）：该样品过滤后Subreads 平均长度；
+8）Subreads Bases（bp）：该样品过滤后subreads 数据量；
+9）Subreads Quality(#)：该样品过滤后subreads 质量值
+10）Utilization Ratio(%)：该样品Polymerase Reads转为subreads的比率
+
+
+ilikeapple	pcontent	Polymerase Reads 及Subreads长度及质量分布图:
+ilikeapple	pngdetail	对过滤后的Subreads 做长度组成和Reads质量分布绘制，从而展示数据整体情况
+ilikeapple	pngs		0	config/default/p4-5.png
+ilikeapple	pngdetail	图 4-5  Polymerase Reads及Subreads 长度和质量分布统计。图中左上角为Polymerase Reads长度分布图，左下角为Subreads长度分布图，横坐标表示Polymerase Reads/Subreads长度，纵轴标表示Polymerase Reads/Subreads数量。图中右上角为Polymerase Reads质量分布图，右下角为Subread质量分布图，横坐标表示Polymerase Reads/Subreads质量，纵坐标表示Polymerase Reads/Subreads数量
+
+ilikeorange	2		1	Abstract/Assembly.stat.xls,Abstract/Assembly.Evaluate.xls,Abstract/Repeat.stat.xls,Separate/*/2.Assembly/*GC-depth.png
+ilikeapple	p3		4.1.2 基因组组装
+
+ilikeorange	3		Abstract/kmer.stat.xls
+ilikeapple	p4		4.1.2.1 Kmer分析
+ilikeapple	pcontent	在不考虑测序错误率，基因组的杂合度和重复度的情况下，逐碱基取15-mer，则15-mer的分布应该服从泊松分布，而在实际数据中，由于测序错误的存在会导致低深度的K-mer数目占非常大的比例，同时，对于某些基因组，由于一定杂合度，会导致在主峰对应的横坐标的二分之一处出现杂合峰，而一定的重复度，会在主峰对应的横坐标的整数倍处出现重复峰。
+Kmer统计文件示例：
+ilikeapple	table		config/table/kmer.xls
+ilikeapple	pfasta		上面统计表各列含有如下：
+1)	Sample_name：改样品名称。
+2)	K-mer(#)：分析时kmer的长度。
+3)	Kmer_Num(Mbp)：Kmer数目。
+4)	PK_Depth(#)：Kmer峰值深度。
+5)	Genome_Size(Mbp)：预估基因组大小。
+6)	Genome_Depth(#)：基因组深度。
+ilikeapple	pcontent	Kmer分析图：
+ilikeapple	pngs		0	config/default/kmer.png
+ilikeapple	pngdetail	图4-6 15-Kmer分析图：横坐标为深度（Depth），纵坐标为各深度下的频数占总频数的比例。在不考虑测序错误率，基因组的杂合度和重复度的情况下，逐碱基取15-mer，则15-mer的分布应该服从泊松分布，而在实际数据中，由于测序错误的存在会导致低深度的K-mer数目占非常大的比例，同时，对于某些基因组，由于一定杂合度，会导致在主峰对应的横坐标的二分之一处出现杂合峰，而一定的重复度，会在主峰对应的横坐标的整数倍附近出现重复峰。
+
+
+ilikeorange	3		Abstract/Assembly.stat.xls
+ilikeapple	p4		4.1.1.2完成图组装
+ilikeapple	pcontent	完成图序列的组装主要基于Pacbio RSII 数据与Illumina Hiseq 4000数据，采用各种基因组组装软件分析，组装出样品中主要的完整的连续的contig，然后在基于得到的contig做单碱基纠正、成环判断等分析，最终得到可信的完成图序列或是染色体水平的contig序列，具体步骤如下：
+（1）初步组装评估基因组：使用多种短序列组装软件对处理后的Illumina Hiseq 4000 reads数据进行组装，初步检测基因组大小、GC含量、重复序列情况、质粒情况、非一致序列情况等信息。
+（2）Pacbio RSII数据组装构建基本骨架：使用SMRT Analysis v2.3.0 流程中的RS_HGAP Assembly3组装基因组。并且判断是否完整的连续的组装出基因组主要的contig，如果没有组装出主要的contig，将借助Illumina Hiseq 4000数据与Pacbio RSII数据混合组装，进一步纠正Subreads、优化参数等，直到组装出基因组主要的contig。
+（3）Contig碱基纠正：利用两轮分析方法对contig进行单碱基纠错。第一轮纠错方法利用Illumina Hiseq 4000数据，采用soapSNP与soapIndel软件对得到的contig进行第一轮纠错分析；第二轮纠错方法也是基于Illumina Hiseq 4000数据，然后采用GATK分析流程来进行纠错分析。
+（4）Contig成环处理：采用多种方法判断Contig是否成环，第一种首先判断Contig两端是否已经有overlap，如果有overlap进一步验证成环区域是否可信；第二种采用SSPACE- LongRead软件基于Pacbio RSII数据中Subreads或corrected reads来判断是否成环；第三种如果样品存在比较近源的基因组，可以利用参考序列辅助判断是否成环。
+（5）完成图判断：如果Contig判断成环将得到完成图水平的完整序列，如果Contig判断不成环并且已验证物种基因组为环形将只能得到染色体水平完整序列，最后对完整序列做评估分析。
+ilikeapple	pngdetail	组装结果统计示例：
+ilikeapple	table		config/table/assembly.xls
+ilikeapple	pfasta		上面统计表各列含有如下：
+1）Sample Name：该样品的名称；
+2）Chromosome Number（#）：该样品染色体数目；
+3）Total Length（bp）：该样品组装结果总长度；
+4）N50 Length（bp）：该样品组装结果N50长度；
+5）N90 Length（bp）：该样品组装结果N90长度；
+6）Max Length（bp）：该样品组装结果中最长染色体长度；
+7）Min Length（bp）：该样品组装结果中最短染色体长度；
+8）GC Content（%）：该样品组装结果序列GC含量；
+
+ilikeorange	3		1	Abstract/Assembly.Evaluate.xls
+ilikeapple	p4		4.1.2.3组装结果质控
+ilikeapple	pcontent	
+选用100X的clean data比对到组装结果中，统计每对reads的ISIZE（Insert Size），过滤掉ISIZE小于100或大于10k的数值，从小到大排序后，选择2%~98%的中间数值作为配对合格的ISIZE。这样，可以把比对结果分为三类：配对比对上的（PE reads），非配对比对上的（SE reads）和不能比对上的（Unmapping reads）。
+reads利用率：reads利用率是指能够比对上的reads数目与参与质控的reads总数目的比率。由于测序存在一定的错误率，该值将小于1。根据经验值判断，在测序错误率为5%的情况下，reads利用率在95%以上算正常。
+单碱基QC：对每个碱基进行PE reads的覆盖统计，深度小于5的位点被认为是不合格位点。单碱基QC通过率是指通过该质控的位点数目与总位点数目的比率，计算公式如下：
+Single Base Quality  =  (# of Depth>=5 Bases) / (# of Total Bases)
+结构性QC：对每个碱基进行比对信息统计，如图4-6，把比对上的reads分为三大块：Backward Bunch，Forward Bunch和Single Bunch。因为测序的随机性，正确的组装结果应该符合下列条件：
+ilikeapple	pfasta		1. Backward Bunch、Forward Bunch的深度均高于3X*；
+2. Backward Bunch、Forward Bunch的配对ISIZE分别分布在合适范围内；
+3. 所有比对上的reads的比对位置满足一定的随机性。
+4. Single Bunch的深度约等于0。
+ilikeapple	tabledetail	（*在理想条件下，Backward Bunch、Forward Bunch的深度都应该等于预期深度的1/2，但受菌株本身基因组特性和实验条件的影响，所有位点不可能都达到预期的效果，所以在统计单碱基最低深度为6X的前提下，Backward Bunch、Forward Bunch的深度均要高于3X。）
+ilikeapple	pcontent	根据上面的条件可以对每个碱基进行结构性的质控。结构性QC通过率的是指通过该质控的位点数目和总位点数目的比率，计算公式如下：
+Structure Base Quality  =  (# of QC-passed Bases) / (# of Total Bases)
+ilikeapple	pngs		0	config/default/p4-6.png
+ilikeapple	pngdetail	图4-6 结构性控制示意图
+ilikeapple	pngdetail	组装结果质控统计示例：
+ilikeapple	table		config/table/assembly.evalution.xls
+ilikeapple	pfasta	上面统计表各列含有如下：
+1）Sample Name：该样品的名称；
+2）Sing Base Quality（#）：该样品单碱基真确率；
+3）Structure Base Quality（#）：该样品结构真确率；
+4）Reads Usage Percent（#）：该样品Reads利用率；
+5）Conclusion：该样品质控结果，Single Base Quality standard 0.95~100，Structure Base Quality standard 0.95~100，Reads Usage Percent standard 0.95~100；
+
+ilikeorange	3		1	Abstract/Repeat.stat.xls
+ilikeapple	p4		4.1.2.4重复序列统计
+ilikeapple	pcontent	不同菌株基因组拥有不同程度的复杂度，例如GC 含量、重复序列等等，菌株组装效果一方面也取决于基因组的复杂程度。分析组装结果重复序列不仅可以展示基因组的复杂程度还可以评估组装结果。
+采用blast软件，通过序列自身的比对，挑选属于重复序列的区域进行统计。设置的参数是：-e 1e-10，比对长度大于或等于50bp的序列identity值大于或等于90，比对长度在大于或等于25bp小于50bp的序列的identity值等于100。如果存在质粒，在组装过程中，质粒和染色体会相互影响，所以统计重复序列时考虑质粒和染色体共同的含量。
+ilikeapple		pngdetail	基因组重复序列统计表示例：
+ilikeapple		table		config/table/repeat.xls
+ilikeapple		pfasta		上面统计表各列含有如下：
+1）Sample Name：该样品的名称；
+2）Repeat Region Number（#）：该样品基因组中重复序列数目；
+3）Repeat Ratio（%）：该样品基因组中重复序列所占比例；
+4）Max Length（%）：该样品基因组中重复序列最大长度；
+5）Min Length（%）：该样品基因组中重复序列最小长度；
+6）Average Length（%）：该样品基因组中重复序列平均长度；
+
+ilikeorange	3		1	Separate/*/2.Assembly/*GC-depth.png
+ilikeapple	p4		4.1.2.5 GC-Depth评估
+ilikeapple	pcontent	
+GC-Depth分析可以展示测序数据是否存在GC偏向性。即测序过程中GC偏向性不严重的数据，该散点图会呈现出近似于泊松分布的形状，即在该基因组的GC值附近会出现一个峰值，而在该值两旁偏离该值越远，则覆盖深度越低。
+GC含量与测序深度（Depth）关联分析统计图：
+ilikeapple	pngs		0	config/default/GC-depth.png
+ilikeapple	pngdetail	图4-7 GC含量与测序深度（Depth）关联分析统计图：横坐标是GC含量，纵坐标是平均测序深度。
+
+ilikeorange	2		1	xxxx
+ilikeapple	p3		4.1.3 基因组组分
+
+ilikeorange	3		1	xxxx
+ilikeapple	p4		4.1.3.1基因成分
+ilikeapple	pcontent	采用 Glimmer软件[1][2][3]进行组装结果的基因预测，其专门针对细菌，古细菌，病毒等微生物而开发，相比其之前版本，可以更有效地预测起始位点和编码区，同时使用了改进的内插隐马模型，并提高了对高GC序列预测的准确性。在保证预测准确性较高的前提下，有效的降低了预测假阳性。
+基因测序统计文件示例：
+ilikeapple	table		config/table/GenePrediction.stat.xls
+ilikeapple	pfasta		
+1）	Sample Name：改样品名称。
+2）	Gene Number(#)：基因数目。
+3）	Gene Total Length(bp)：基因的总长度。
+4）	GC Content in Gene Region(%)：基因的GC含量。
+5）	Gene Length/Genome Length(%)：基因长度占基因组总长的比例。
+6）	Gene Average Length(bp)：基因的平均长度。
+7）	Gene Internal Total Length(bp)：基因间区总长度。
+8）	GC Content in Intergenic Region(%)：基因间区GC含量。
+ilikeapple	pcontent	基因长度分析图：
+ilikeapple	pngs		0	config/default/glimmer.cds.png
+ilikeapple	pngdetail	图4-8 基因长度分布图：横坐标是基因长度，纵坐标是基因数目。
+
+ilikeorange	3		1	xxxx
+ilikeapple	p4		4.1.3.2重复序列
+ilikeapple	pcontent	通过TRF（Tandem Repeat Finder）软件[1]预测串联重复序列，并根据重复单元长度及数目筛选出其中的微卫星以及小卫星序列。
+重复序列统计文件示例：
+ilikeapple	table		config/table/TandemRepeat.stat.xls
+ilikeapple	pfasta		
+1)	Sample Name：改样品名称；
+2)	Type：重复序列的类型，TRF：串联重复序列；Minisatellite DNA，小卫星DNA或数目可变串联重复序列；Microsatellite DNA，微卫星或简单串联重复序列。
+3)	Number(#)：重复序列的数目。
+4)	Repeat Size(bp)：重复单元的长度。
+5)	Total Length（bp）：重复序列的总长度。
+6)	In Genome(%)：重复序列占基因组的比例。
+
+
+ilikeorange	3		1	xxxx
+ilikeapple	p4		4.1.3.3 非编码RNA
+ilikeapple	pcontent		通过与rRNA库比对找到rRNA，或RNAmmer[1]软件预测rRNA；通过tRNAscan[2]软件预测tRNA区域和tRNA的二级结构；通过Infernal软件，与Rfam[3]数据库进行比对得到sRNA
+ilikeapple	pngdetail	*注：通过比对方法找到的rRNA较为准确但是不够全面，尤其是在缺少近缘物种rRNA作为参考序列的情况下，就只能使用rRNAmmer软件进行从头预测。
+ilikeapple	pcontent	ncRNA统计文件示例：
+ilikeapple	table		config/table/ncRNA.stat.xls
+ilikeapple	pfasta		
+1)	Sample Name：改样品名称；
+2)	Type：ncRNA的类型。 
+3)	Number(#)：ncRNA的数目。
+4)	Average Length (bp)：ncRNA平均长度。
+5)	Total Length（bp）：ncRNA的总长度。
+6)	In Genome(%)：ncRNA总长占基因组的比例。
+
+
+ilikeorange	3		1	xxxx
+ilikeapple	p4		4.1.3.4基因岛（GIs）
+ilikeapple	pcontent	对应预测软件主要有IslandPath-DIOMB 、SIGI-HMM、 IslandPicker、和IslandViewer。其中，IslandPath-DIOMB 和SIGI-HMM是基于序列构成的预测方法；IslandPicker是基于多基因组比较的预测方法。而软件IslandViewer是前三种软件的整合版，可通过上传所测基因组的gbk格式文件，在线预测并查看预测结果，但目前只针对完成图。
+
+
+
+
+
+
+
+ilikeorange	3		1	xxxx
+ilikeapple	p4		4.1.3.5 前噬菌体（Prophage）
+ilikeapple	pcontent	通过软件PHAST预测前噬菌体prophage。PHAST（PHAge Search Tool）软件可以输入FASTA或GenBank格式的DNA序列进行前噬菌体预测，研究表明PHAST具有比其它前噬菌体预测软件更高的准确性，敏感度（sensitivity）达到85%以上，阳性预测值（PPV）达到94%以上。
+
+
+
+
+ilikeorange	3		1	xxxx
+ilikeapple	p4		4.1.3.6 CRISPR
+ilikeapple	pcontent	使用CRISPRFinder软件，识别CRISPRs，得到DRs和Spacers。具体过程如下：
+（1）找出至少含有一个Motif（由2个Repeats和1个spacers组成）的CRISPRs位置。
+通过软件Vmatch找到最大的Repeat，它包含2个DRs和之间的spacer序列。其中，DRs的长度范围是23-55bp，spacer的长度范围是25-60bp。
+（2）识别候选DRs。
+根据定义的分数，对候选DRs进行识别。此分数的定义考虑了候选DR在整个基因组发生的数目，以及允许DRs之间的错配，而不允许DR的第一个位置和最后一个位置发生错配。
+（3）通过核对是否符合CRISPR的结构和定义，对CRISPR进行筛选。
+Spacer的长度要在0.6DR-2.5DR之间。否则，予以去除。
+（4）去除错误的Repeat。
+通过CLUSTALW程序对两两的Spacers进行比对，同源性超过60%的认为是串联重复序列（Tandem Repeats），予以剔除。
+最后，至少有3个Motifs和至少有2个完全同源的DRs才认为是可信的CRISPRs。剩下的就是尚未通过验证的CRISPR（即"Questionable" CRISPRs），需进一步验证。
+
+ilikeorange	2	1	xxxxx
+ilikeapple	p3	4.1.4 基因功能注释
+
+ilikeorange	3		1	xxxx
+ilikeapple	p4		4.1.4.1 通用功能注释
+ilikeapple	pcontent	基因注释主要基于氨基酸序列比对。将基因的氨基酸序列与各数据库进行比对，得到对应的功能注释信息。由于每一条序列比对结果超过一条，为保证其生物意义，我们保留一条最优比对结果作为该基因的注释。所有的注释均使用BLAST软件结合各个数据库的特点完成，提供的BLAST结果为M8格式，同时还提供部分数据库的注释结果汇总。
+
+
+ilikeorange	3		1	xxxx
+ilikeapple	p4		4.1.4.2 III型分泌系统效应蛋白
+ilikeapple	pcontent	基于EffectiveT3方法对输入氨基酸序列进行预测，通过其内部特定的计算模型对每条氨基酸序列进行评分，对于评分高于阈值的序列认为可信将其挑出。同时，对氨基酸序列进行nr库比对注释。最后将两者进行整合获得最后结果。
+ilikeorange	2		1	xxxxx
+ilikeapple	p3		4.1.5 基因组环形图
+ilikeapple	pcontent	根据基因组序列绘出其GC图，使用（G–C）/（G+ C）的计算方法来进行GC skew分析，同时根据COG的注释结果和基因的位置信息绘出COG注释的基因在基因组上的分布情况。
+基因组环形图：
+ilikeapple	pngs		0	config/default/Circle.png
+ilikeapple	pngdetail	图 4-9 所测菌株的ncRNA注释、COG注释基因、GC含量、GC skew分布图。由外至内，第一圈表示正链的ncRNA分布，包括tRNA、rRNA及sRNA三种类型（可参见右下角说明）；第二圈表示正链的COG注释基因分布，以不同的颜色区分（可参见右下角说明）；第三圈表示负链的COG注释基因分布；第四圈表示负链的ncRNA分布；第五圈（黑色）表示GC含量，以平均GC为基准线，向外突出的表示高于均值，向内突出的表示低于均值；第六圈为GC skew值，紫色表示小于0，绿色表示大于0。
+
+
+
+
+
+
+
+ilikeorange	1	0	
+ilikeapple	p2	4.2软件及数据库
+
+ilikeorange	1	1	Abstract/.only_filter,Abstract/Assembly.stat.xls
+ilikeapple	pfasta	软件：SMRT Analysis v2.2.0
+相关网站：https://github.com/PacificBiosciences/SMRT-Analysis/wiki/SMRT-Pipe-Reference-Guide-v2.3.0
+
+ilikeorange	1	1	Abstract/Assembly.stat.xls
+ilikeapple	pfasta	软件：Celera Assembler[1]
+相关网站：http://sourceforge.net/projects/wgs-assembler/files/wgs-assembler/wgs-8.3/
+软件：Meraculous[2]
+相关网站：ftp://ftp.jgi-psf.org/pub/JGI_data/meraculous/
+软件：SOAPsnp[3]
+相关网站：http://soap.genomics.org.cn/soapsnp.html
+软件：SOAPIndel
+相关网站：http://soap.genomics.org.cn/soapindel.html
+软件：GATK
+相关网站：http://www.broadinstitute.org/gatk/
+软件：SSPACE- LongRead[4]
+相关网站：www.baseclear.com/bioinformatics-tools/.
+
+
+ilikeorange	1	1	Abstract/GenePrediction.stat.xls
+ilikeapple	pfasta	软件：Glimmer[5][6][7]；版本：3.02
+相关网站：http://www.cbcb.umd.edu/software/glimmer/
+常用参数设置：-o * –g * –t * – l linear
+
+ilikeorange	1	1	Abstract/TandemRepeat.stat.xls
+ilikeapple	pfasta	软件：Tandem Repeats Finder[8]；版本：4.04
+相关网站：http://tandem.bu.edu/trf/trf.html
+常用参数设置：2 7 7 80 10 50 2000 -d -h
+
+ilikeorange	1	1	Abstract/ncRNA.stat.xls
+ilikeapple	pfasta	软件：RNAmmer[9]；版本：1.2
+相关网站：http://www.cbs.dtu.dk/services/RNAmmer/
+常用参数设置：–s Species –m Type –gff *. rRNA.gff –f *.rRNA.fq
+软件：tRNAscan-SE[10]；版本：1.3.1
+相关网站：http://gtrnadb.ucsc.edu/
+常用参数设置设置：–Spec_tag(BAOG) –o *.tRNA –f *.tRNA.structure
+数据库：Rfam[11]；版本：9.1
+相关网站：http://rfam.sanger.ac.uk/
+常用参数设置：–p blastn –W 7 –e 1 –v 10000 –b 10000 –m 8 –i subfile –o *.blast.m8
+
+
+ilikeorange	1	1	Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat*xls
+ilikeapple	pfasta	软件：IslandPath-DIOMB[12]；版本：0.2
+软件：SIGI-HMM[13]；版本：3.8
+软件：IslandPickerp[14]；版本：0.2
+相关网站：http://www.pathogenomics.sfu.ca/islandviewer/resources.php/
+
+ilikeorange	1	1	Separate/*/3.Genome_Component/Prophage/3T.Prophage.txt
+ilikeapple	pfasta	软件：PHAST[15]；版本：2013.6.7
+相关网站：http://phast.wishartlab.com/
+
+ilikeorange	1	1	Separate/*/3.Genome_Component/CRISPR/*.CRISPR.stat
+ilikeapple	pfasta	软件：CRISPRFinder[16]；版本：0.4
+相关网站：http://crispr.u-psud.fr/Server/
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/*.annotation.table,Abstract/EffectiveT3.stat.xls
+ilikeapple	pfasta	软件：EffectiveT3[17]；版本：1.0.1
+相关网站：http://www.effectors.org/index.jsp
+常用参数设置：-f *.pep -n *.anno -m std -t cutoff=0.95 -dir *
+
+
+
+ilikeorange	2	1	Separate/*/4.Genome_Function/*.annotation.table
+ilikeapple	p3	4.2.2 数据库 
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.kegg
+ilikeapple	pfasta	Kyoto Encyclopedia of Genes and Genomes(KEGG) [18][19][20]；版本：59
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.cog.list.cogclass.png
+ilikeapple	pfasta	Cluster of Orthologous Groups of proteins(COG) [21][22]；版本：20090331
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.swissprot.list.filter
+ilikeapple	pfasta	Swiss-Prot[23]；版本：2011_10_19
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.nr.list.filter
+ilikeapple	pfasta	NR；版本：2012-02-29
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.go.png
+ilikeapple	pfasta	Gene Ontology (GO) [24]；版本：1.419
+ilikeorange	1	1	Abstract/EffectiveT3.stat.xls,Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno
+ilikeapple	pfasta	Pathogen Host Interactions (PHI)[25]；版本：3.2
+ilikeorange	1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.ardb.list.anno
+ilikeapple	pfasta	Antibiotic Resistance Genes Database (ARDB)[26]；版本：1.1
+ilikeorange	1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.vfdb.list.anno
+ilikeapple	pfasta	Virulence Factors of Pathogenic Bacteria (VFDB)[27]；版本：Mon Jan 28 16:00:25 2013
+ilikeorange	1	1	Abstract/Cazy.stat.xls
+ilikeapple	pfasta	Carbohydrate-Active enZYmes Database (CAZy)[28]；版本：2010-12-14
+
+
+
+ilikeorange	1	0	
+ilikeapple	p2	4.3名称解释
+
+ilikeorange	1	1	Abstract/.only_filter,Abstract/Assembly.stat.xls
+ilikeapple	psoft	SMRT®Cells: Consumable substrates comprising arrays of zero-mode waveguide nanostructures. SMRT®Cells are used in conjunction with the DNA Sequencing Kit for on-instrument DNA sequencing
+SMRTbell™ template: A double-stranded DNA template capped by hairpin adapters (i.e., SMRTbell™ adapters) at both ends. A SMRTbell™ template is topologically circular and structurally linear, and is the library format created by the DNA Template Prep Kit.
+Zero-Mode Waveguide: A nanophotonic device for confining light to a small observation volume that can be, for example, a small hole in a conductive layer whose diameter is too small to permit the propagation of light in the wavelength range used for detection.
+Insert Size: The length of the double-stranded nucleic acid fragment in a SMRTbell template,excluding the hairpin adapteRS II.
+Polymerase Reads : A sequence of nucleotides incorporated by the DNA polymerase while reading a template, such as a circular SMRTbell™ template. Polymerase reads are most useful for quality control of the instrument run. Polymerase read metrics primarily reflect movie length and other run parameters rather than insert size distribution. Polymerase reads are trimmed to include only the high quality region; they include sequences from adapters; and can further include sequence from multiple passes around a circular template.
+Subread: Each polymerase read is partitioned to form one or more subreads, which contain sequence from a single pass of a polymerase on a single strand of an insert within a SMRTbell™ template and no adapter sequences. The subreads contain the full set of quality values and kinetic measurements. Subreads are useful for applications like de novo assembly, resequencing, base modification analysis, and so on.
+Clean Data（reads）：即下机数据经过去接头污染、过滤低质量reads、去duplication（针对大片段数据）之后，实际用于组装及分析的数据。
+
+ilikeorange	1	1	Abstract/Assembly.stat.xls
+ilikeapple	psoft	BLASR: Used for targeted sequencing. Maps reads against a reference; part of SMRT® Analysis.
+Celera® Assembler: Combines Pacific Biosciences’ long reads with short reads generated by other technologies. Used for de novo assembly. Third party software integrated with the SMRT® Analysis suite.
+GATK: Identifies haploid and diploid SNPs using the Broad’s Unified Genotyper software.
+N50/N90：将组装所得片段（Scaffold/Contig）按照从长到短排序并累加求和，累加值达到基因组总长度一半时的片段长度即是该组装结果的N50值，通常用来衡量组装情况；N90与之类似，即累加长度为基因组总长。
+
+
+
+ilikeorange	1	0	
+ilikeapple	p2	4.4参考文献
+
+
+ilikeorange	1	1	Abstract/Assembly.stat.xls
+ilikeapple	pfasta	
+[1] Istrail et al. (2004) Whole-Genome Shotgun Assembly and Comparison of Human Genome Assemblies. PNAS 101 1916-1921.
+[2] Chapman JA, Ho I, Sunkara S, Luo S, Schroth GP, et al. (2011) Meraculous: De Novo Genome Assembly with Short Paired-End Reads. PLoS ONE 6(8): e23501. doi:10.1371/journal.pone.0023501
+[3] Li R, Li Y, et al (2009). SNP detection for massively parallel whole-genome resequencing. Genome Res. published online May 6, 2009 , doi:10.1101/gr.088013.108
+[4] Boetzer M, Henkel CV, Jansen HJ, Butler D and Pirovano W. 2010. Scaffolding pre-assembled contigs using SSPACE. Bioinformatics. 27(4):578-579
+
+ilikeorange	1	1	Abstract/GenePrediction.stat.xls
+ilikeapple	pfasta
+[5] A.L. Delcher, D. Harmon, S. Kasif, O. White, and S.L. Salzberg (1999) Improved microbial gene identification with GLIMMER, Nucleic Acids Research 27:23 4636-4641.
+[6] S. Salzberg, A. Delcher, S. Kasif, and O. White (1998) Microbial gene identification using interpolated Markov models, Nucleic Acids Research 26:2, 544-548.
+[7] Delcher AL， Bratke KA， Powers EC，et  al（2007）. Identifying  bacterial genes and endosymbiont DNA with Glimmer. Bioinformatics, 23(6):673-679.
+
+ilikeorange	1	1	Abstract/TandemRepeat.stat.xls
+ilikeapple	pfasta	
+[8] G. Benson(1999). Tandem repeats finder: a program to analyze DNA sequences. Nucleic Acids Research, Vol. 27, No. 2, pp. 573-580.
+
+ilikeorange	1	1	Abstract/ncRNA.stat.xls
+[9]	Lagesen k, Hallin P.F, Rødland E, et al(2007). RNAmmer: consistent and rapid annotation of ribosomal RNA genes. Nucl. Acids Res, 35 (9): 3100-3108.
+[10]	Lowe T.M, Eddy S.R(1997). tRNAscan-SE: A Program for Improved Detection of Transfer RNA Genes in Genomic Sequence. Nucl. Acids Res. 25 (5): 0955-964.
+[11]	Gardner P.P, Daub J, Tate J.G., et al(2009). Rfam: updates to the RNA families database. Nucl. Acids Res. 37 (suppl 1): D136-D140.
+
+ilikeorange	1	1	Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat*xls
+ilikeapple	pfasta	
+[12] Hsiao, W., I. Wan, et al (2003). IslandPath: aiding detection of genomic islands in prokaryotes. Bioinformatics 19(3): 418-420.
+[13] Stephan Waack1, Oliver Keller, et al (2006). Score-based prediction of genomic islands in prokaryotic genomes using hidden Markov models. BMC Bioinformatics. 2006, 7:142
+[14] Morgan GI Langille, William WL Hsiao, et al (2008). Evaluation of genomic island predictors using a comparative genomics approach. BMC Bioinformatics 2008, 9:329
+
+
+ilikeorange	1	1	Separate/*/3.Genome_Component/Prophage/*Prophage*
+ilikeapple	pfasta	
+[15] You Zhou, Yongjie Liang, Karlene Lynch, Jonathan J. Dennis, David S. Wishart “PHAST: A Fast Phage Search Tool” Nucl. Acids Res. (2011) 39(suppl 2): W347-W352 [doi:10.1093/nar/gkr485][PMID:21672955]
+
+ilikeorange	1	1	Separate/*/3.Genome_Component/CRISPR/*.CRISPR.stat
+ilikeapple	pfasta	
+[16] Grissa, I., G. Vergnaud, et al (2007). CRISPRFinder: a web tool to identify clustered regularly interspaced short palindromic repeats. Nucleic Acids Res. 35(Web Server issue): W52-57.
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/*.annotation.table,Abstract/EffectiveT3.stat.xls
+ilikeapple	pfasta	
+[17] Jehl MA, Arnold R, Rattei T (2011). Effective - a database of predicted secreted bacterial proteins. Nucl. Acids Res. 39 (suppl 1): D591-D595.
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.kegg.functional_classification_2.png
+ilikeapple	pfasta
+[18] Kanehisa M, Goto S, Kawashima S, Okuno Y, Hattori M (2004). The KEGG resource for deciphering the genome. Nucleic Acids Res 32 (Database issue): D277–80.
+[19] Kanehisa M (1997). A database for post-genome analysis. Trends Genet 13 (9): 375–6.
+[20] Kanehisa M, Goto S, Hattori M, Aoki-Kinoshita KF, Itoh M, Kawashima S, et al. (2006). From genomics to chemical genomics: new developments in KEGG. Nucleic Acids Res 34(Database issue): D354–7.  
+[21] Tatusov RL, Koonin EV, Lipman DJ(1997). A genomic perspective on protein families. Science. Oct 24;278(5338):631-7.
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.cog.list.cogclass.png
+ilikeapple	pfasta
+[22] Tatusov RL, Fedorova ND et al.(2003). The COG database: an updated version includes eukaryotes. BMC Bioinformatics. Sep 11;4:41.
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.swissprot.list.filter
+ilikeapple	pfasta	[23] Magrane, M. and UniProt Consortium (2011) UniProt Knowledgebase: a hub of integrated protein data. Database (Oxford) , bar009.
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.go.png
+ilikeapple	pfasta	[24] Bard J, Winter R (2000). Gene Ontology：tool for the unification of biology. Nat Genet. 25:25-29.
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno,Abstract/Cazy.stat.xls
+ilikeapple	pfasta	[25] Vargas WA, Martín JM et al (2012). Plant defense mechanisms are activated during biotrophic and necrotrophic development of Colletotricum graminicola in maize. Plant Physiol. 2012 Mar;158(3):1342-58.
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.ardb.list.anno
+ilikeapple	pfasta	[26] Liu B, Pop M (2009). ARDB-Antibiotic Resistance Genes Database. Nucleic Acids Res. Jan;37(Database issue):D443-7.
+
+ilikeorange	1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.vfdb.list.anno
+ilikeapple	pfasta	[27] Chen LH, Xiong ZH, Sun LL, Yang J and Jin Q (2012). VFDB 2012 update: toward the genetic diversity and molecular evolution of bacterial virulence factors. Nucleic Acids Res. 40(Database issue):D641-D645.
+
+ilikeorange	1	1	Abstract/Cazy.stat.xls
+ilikeapple	pfasta	[28] Cantarel BL, Coutinho PM, Rancurel C, Bernard T, Lombard V, Henrissat B (2009) .The Carbohydrate-Active EnZymes database (CAZy): an expert resource for Glycogenomics. Nucleic Acids Res 37:D233-238
+
+
+
+
+
+
+
+ilikeorange		1	0	null
+ilikeapple		p2	4.5常用数据格式介绍
+
+ilikeorange		1	1	Abstract/HiseqCleandata.xls,Abstract/PacbioCleandata.xls,Abstract/Assembly.stat.xls
+ilikeapple		pbold		FASTQ格式
+ilikeapple		pcontent	Fastq文件举例如下：
+read1的fastq文件 x1.fq中第一条reads：
+ilikeapple		pfasta		@FC4290FAAXX:4:1:3:84#CAGATC/1
+CCAACTATGATAGCCAANAAGGGAAAGCCATAGAG
++
+abb_aab_aa`a^aba^D[`a_`aaaa`_a_`__a
+ilikeapple		pcontent	read2的fastq文件 x2.fq中第一条reads：
+ilikeapple		pfasta		@FC4290FAAXX:4:1:3:84#CAGATC/2
+CGAAAGCTAGTGCTAAAGAAAACAATTTATATTTCATAAAATTG
++
+ab`baa``aa_ba`aaa`aa`b_a^aa`a_aa`a`aa`a_aa_^
+ilikeapple		pcontent	格式说明如下：
+ilikeapple		table		config/table/fasta.xls
+
+ilikeorange		1	1	Abstract/HiseqCleandata.xls,Abstract/PacbioCleandata.xls,Abstract/Assembly.stat.xls
+ilikeapple		pbold		FASTA格式
+ilikeapple		pcontent	FASTA格式（又称为Pearson格式），是一种基于文本用于表示核苷酸序列或氨基酸序列的格式。在这种格式中碱基对或氨基酸用单个字母来编码，且允许在序列前添加序列名及注释。序列文件的第一行是由大于号">"或分号";"打头的任意文字说明（习惯常用">"作为起始），用于序列标记。从第二行开始为序列本身，只允许使用既定的核苷酸或氨基酸编码符号。通常核苷酸符号大小写均可，而氨基酸常用大写字母。如：
+ilikeapple		pfasta		>scaffold1 35.9
+AACTCCAAATGTTTTACATCCTTTTTTTATCCATAATATATAATCAACTGATATACAAAATGAAAAAATACTACCTACATTTTTATTAGGCTTATTTTATTAAAATAAGGTTGGTGTTGTGGAAATAGCCATTCT
+
+ilikeorange		1		1	Separate/*/4.Genome_Function/*.annotation.table
+ilikeapple		pbold		BLAST m8格式
+ilikeapple		pcontent	BLAST m8格式为列表格式的比对结果。
+ilikeapple		pngdetail	m8格式举例如下：
+ilikeapple		pfasta		
+GL000017	98490	47.73	176	80	4	18	185	8	179	2e-28	 124
+GL000048	50873	62.31	650	234	3	267	913	5	646	0.0	 795
+GL000073	54575	43.20	125	64	4	420	540	61	182	1e-14	 82.0
+GL000125	54553	52.81	1049	469	15	43	1080	42	1075	0.0	 1066
+GL000372	88218	41.82	220	124	2	523	741	3	219	6e-40	 165
+GL000373	121083	55.54	695	298	5	51	744	7	691	0.0	 725
+GL000382	41506	41.81	342	190	5	20	355	1353	1691	4e-62	 237
+GL000432	71577	55.53	488	209	5	29	510	34	519	1e-138	 492
+GL000507	88218	41.12	214	118	3	3	209	5	217	4e-33	 140
+GL000587	1670	51.02	49	24	0	4	52	911	959	3e-08	 55.8
+ilikeapple	pcontent	格式说明如下：
+ilikeapple	table		config/table/m8.stat.xls
+
+
+ilikeorange	1	1	Separate/*/3.Genome_Component/Tandem_Repeat/*.TRF.stat.xls,Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat.filter.xls,Separate/*/3.Genome_Component/Gene_Prediction/*.gene.stat.xls,Separate/*/3.Genome_Component/ncRNA_Finding/*.ncRNA.stat.xls,Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat.xls,Separate/*/3.Genome_Component/Prophage/3T.Prophage.txt,Separate/*/3.Genome_Component/CRISPR/*.CRISPR.stat
+ilikeapple	pbold		GFF格式
+ilikeapple	pcontent	gff格式是Sanger研究所定义，是一种简单的、方便的对于DNA、RNA以及蛋白质序列的特征进行描述的一种数据格式，比如序列的哪里到哪里是基因，已经成为序列注释的通用格式，比如基因组的基因预测，许多软件都支持输入或者输出gff格式。目前格式定义的最新版本是版本3。
+gff格式举例如下：
+ilikeapple	pfasta		
+Scaffold1	glimmer	gene	113	2818	.	+	.	ID=CellulomonasGL000001;Name=CellulomonasGL000001;
+Scaffold1	glimmer	mRNA	113	2818	.	+	.	ID=CellulomonasGL000001;Name=CellulomonasGL000001;Parent=CellulomonasGL000001;
+Scaffold1	glimmer	CDS	113	2818	13.49	+	0	Parent=CellulomonasGL000001;
+Scaffold1	glimmer	gene	3173	3883	.	+	.	ID=CellulomonasGL000002;Name=CellulomonasGL000002;
+Scaffold1	glimmer	mRNA	3173	3883	.	+	.	ID=CellulomonasGL000002;Name=CellulomonasGL000002;Parent=CellulomonasGL000002;
+Scaffold1	glimmer	CDS	3173	3883	16.51	+	0	Parent=CellulomonasGL000002;
+ilikeapple	pcontent	gff格式说明如下：
+ilikeapple	table		config/table/gff.intro.xls
+
+
+
+ilikeorange	1	0	null
+ilikeapple	p2	4.6分析结果文件列表
+ilikeapple   plist      |-- Large project number_subproject code
+                        |	|-- Abstract
+ilikeorange	-1	1	Abstract/Assembly.Evaluate.xls
+ilikeapple   plist      |    |   |-- Assembly.Evaluate.xls										[组装结果评价统计文件]
+
+ilikeorange	-1	1	Abstract/Assembly.stat.xls
+ilikeapple  plist       |    |   |-- Assembly.stat.xls											[组装结果统计文件]
+
+ilikeorange	-1	1	Abstract/HiseqCleandata.xls
+ilikeapple  plist 	|    |   |-- HiseqCleandata.xls											[Hiseq 数据统计文件]
+
+ilikeorange	-1	1	Abstract/PacbioCleandata.xls
+ilikeapple  plist	|    |   |-- PacbioCleandata.xls										[Pacbio 数据统计文件]
+
+ilikeorange	-1	1	Abstract/Project_info_en.xls
+ilikeapple  plist	|    |   |-- Project_info_en.xls										[项目信息统计文件]
+
+ilikeorange	-1	1	Abstract/Repeat.stat.xls
+ilikeapple  plist	|    |   |-- Repeat.stat.xls											[重复序列统计文件]
+
+ilikeorange	-1	1	Abstract/Sample.statistics.xls
+ilikeapple  plist	|    |   |-- Sample.statistics.xls										[样品信息分析统计文件]
+
+ilikeorange  	-1	0 	null
+ilikeapple  plist       |	|--Separate/
+                        |	|    |--Sample name/
+
+
+ilikeorange     -1       1       Abstract/.only_filter
+ilikeapple  plist	|       |       |       |--0.Rawdata/ [Pacbio 原始下机数据]
+ilikeapple  plist       |       |       |       |       |--*.1.bax.h5 [Pacbio 原始下机数据第一个文件]
+ilikeapple  plist       |       |       |       |       |--*.2.bax.h5 [Pacbio 原始下机数据第一个文件]
+ilikeapple  plist       |       |       |       |       |--*.3.bax.h5 [Pacbio 原始下机数据第一个文件]
+ilikeapple  plist       |       |       |       |       |--*.bas.h5 [Pacbio 原始下机数据记录文件]
+
+
+ilikeorange	-1	1	Abstract/HiseqCleandata.xls,Abstract/PacbioCleandata.xls
+ilikeapple  plist      	|	|	|	|--1.Cleandata/  									[过滤后的数据]
+
+ilikeorange	-1	1	Abstract/HiseqCleandata.xls
+ilikeapple  plist	|	|	|	|	|--*_Clean.1.fq.gz 	 							[Hiseq Cleandata read1文件]
+                        |	|	|   	|	|--*_Clean.2.fq.gz	   							[Hiseq Cleandata read2文件]
+                        |	|	|   	|	|--*_Clean.base.png	   							[Hiseq reads处理后碱基分布图]
+			|	|	|   	|	|--*_Clean.qual.png	   							[Hiseq reads处理后碱基质量分布图]
+			|	|	|	|	|--*.Hiseq_Cleandata.xls							[Hiseq Clean data 统计文件]
+ilikeorange	-1	1	Abstract/PacbioCleandata.xls
+ilikeapple   plist	|	|	|	|	|--*.filtered_subreads.fastq.gz  						[Pacbio Subreads fastq 格式文件]
+                        |	|	|	|	|--*.filtered_subreads.fasta.gz  						[Pacbio Subreads fasta 格式文件]
+                        |	|	|	|	|--*.Pacbio.Clean.png								[Pacbio reads 处理后长度及质量分布图]
+                        |	|	|	|	|--*.Pacbio.raw.png								[Pacbio reads原始长度及质量分布图]
+                        |	|	|	|	|--*..Pacbio_Cleandata.xls							[Pacbio Cleand data 统计文件]
+
+ilikeorange	-1	1	xx/genome.fa,Abstract/Assembly.stat.xls,Abstract/Assembly.Evaluate.xls,Abstract/Repeat.stat.xls
+ilikeapple    plist	|	|	|	|--2.Assembly/   									[基因组组装结果]
+ilikeapple    plist	|	|	|	|	|--*.genome.fa									[组装结果序列文件]
+
+ilikeorange	-1	1	Abstract/Assembly.Evaluate.xls
+ilikeapple    plist	|	|	|	|	|--*.ass_eva.xls								[组装结果评估文件]
+
+ilikeorange     -1       1	Abstract/Assembly.stat.xls                        
+ilikeapple    plist     |	|	|	|	|--*.ass_stat.xls								[组装结果统计文件]
+
+ilikeorange	-1	1	Abstract/Repeat.stat.xls
+ilikeapple    plist     |	|	|	|	|--*.repeat_stat.xls								[组装结果重复]
+ilikeorange	-1	1	Abstract/kmer.stat.xls
+ilikeapple	plist	
+|	|	|	|	|--*.kmer.png  								[kmer分析图]
+|	|	|	|	|--*.kmer.stat								[kmer分析统计结果]
+
+ilikeorange	-1	1	Separate/*/2.Assembly/*GC-depth.png
+ilikeapple	plist	
+|	|	|	|	|--*.GC-depth.png  									[GC与测序深度分布图]
+
+
+ilikeorange	-1	1	Separate/*/3.Genome_Component/Tandem_Repeat/*.TRF.stat.xls,Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat.filter.xls,Separate/*/3.Genome_Component/Gene_Prediction/*.gene.stat.xls,Separate/*/3.Genome_Component/ncRNA_Finding/*.ncRNA.stat.xls,Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat.xls,Separate/*/3.Genome_Component/Prophage/3T.Prophage.txt,Separate/*/3.Genome_Component/CRISPR/*.CRISPR.stat
+ilikeapple	plist	|	|	|	|--3.Genome_Component/   						[基因组组分分析结果]
+
+ilikeorange	-1	1	Separate/*/3.Genome_Component/Gene_Prediction/*.gene.stat.xls
+ilikeapple	plist	
+|	|	|	|	|-- Gene_Prediction/  									[基因预测结果]
+|	|	|	|	|	|-- *.glimmer.gff  									[预测基因的GFF3格式文件]
+|	|	|	|	|	|-- *.glimmer.cds  									[预测基因的CDS序列]
+|	|	|	|	|	|-- *.glimmer.pep  									[预测基因的蛋白序列]
+|	|	|	|	|	|-- *.glimmer.cds.png  								[基因长度分布图]
+|	|	|	|	|	|-- *.gene.stat.xls  									[预测基因的结果统计]
+
+ilikeorange	-1	1	Separate/*/3.Genome_Component/Tandem_Repeat/*.TRF.stat.xls
+ilikeapple	plist	
+|	|	|	|	|-- Tandem_Repeat/   									[串联重复分析结果]
+|	|	|	|	|	|-- *.trf.dat   										[TRF软件的初始结果]
+|	|	|	|	|	|-- *.trf.dat.gff  									[*.trf.dat对应的GFF3格式文件]
+|	|	|	|	|	|-- *.TRF.stat.xls  									[串联重复序列的统计结果]
+|	|	|	|	|	|-- *.Minisatellite.DNA.dat.gff  						[Minisatellite DNA的GFF3格式文件]
+|	|	|	|	|	|-- *.Microsatellite.DNA.dat.gff  						[Microsatellite DNA的GFF3格式文件]
+
+ilikeorange	-1	1	Separate/*/3.Genome_Component/CRISPR/*.CRISPR.stat
+ilikeapple	plist	|	|	|	|	|-- CRISPR/  							[CRISPR预测的结果]
+|	|	|	|	|	|-- *.Crispr.stat.xls  								[CRISPR预测结果的统计]
+|	|	|	|	|	|-- *.Crispr_Spacer.fa  								[Spacer序列文件]
+
+ilikeorange	-1	1	Abstract/ncRNA.stat.xls
+ilikeapple	plist	|	|	|	|	|-- ncRNA_finding/							[非编码RNA的预测结果]
+|	|	|	|	|	|--*.ncRNA.stat.xls									[非编码RNA的预测结果统计]
+|	|	|	|	|	|-- *.tRNA  										[tRNAscan的初始预测结果]
+|	|	|	|	|	|-- *.tRNA.gff  									[tRNA预测结果的GFF3格式文件]
+|	|	|	|	|	|-- *.tRNA.structure  								[tRNA的二级结构文件]
+|	|	|	|	|	|-- *.denovo.rRNA.fa  								[rRNAmmer预测得到的rRNA的序列]
+|	|	|	|	|	|-- *.denovo.rRNA.gff  								[rRNAmmer预测得到的rRNA的gff3格式文件]
+|	|	|	|	|	|-- *.homology.rRNA.tab  							[同源比对预测rRNA得到的Blast比对结果]
+|	|	|	|	|	|-- *.homology.rRNA.gff   							[同源比对预测rRNA得到的gff3格式文件]
+|	|	|	|	|	|-- *.sRNA.cmsearch.all.gff  						[sRNA预测得到的原始结果]
+|	|	|	|	|	|-- *.sRNA.cmsearch.confident.gff  					[sRNA预测根据阈值筛选后得到的结果]
+|	|	|	|	|	|-- *.sRNA.cmsearch.confident.nr.gff  					[sRNA去冗余后的最终结果]
+
+ilikeorange	-1	1	Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat*xls
+ilikeapple	plist	|	|	|	|	|-- Genomic_Island/  									[基因岛预测结果]
+|	|	|	|	|	|-- *. GIs.blat.xls  									[与数据库比对预测的原始结果]
+|	|	|	|	|	|-- *.GIs.blat.filter.xls  								[与数据库比对过滤后的结果]
+ilikeorange	-1	1	Separate/*/3.Genome_Component/Prophage/*Prophage*
+ilikeapple	plist	|	|	|	|	|-- Prophage/  										[前噬菌体预测结果]
+|	|	|	|	|	|-- *.Prophage.xls  								[前噬菌体预测结果列表]
+
+ilikeorange	-1	1	Separate/*/4.Genome_Function/*.annotation.table
+ilikeapple	plist	
+|	|	|	|-- 4.Genome_Function/										[基因注释结果]
+|	|	|	|	|-- *.annotation.table.xls									[整合所有注释结果的表格文件]
+|	|	|	|	|--General_Gene_Annotation/								[通用基因功能注释结果]
+ilikeorange	-1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.go.png
+ilikeapple	plist	
+|	|	|	|	|	|-- *.iprscan										[总的GO注释结果]
+|	|	|	|	|	|-- *.iprscan.gene.GO								[基因与GO数据库的对应情况]
+|	|	|	|	|	|-- *.iprscan.gene.wego								[基因与wego的对应情况]
+|	|	|	|	|	|-- *.iprscan.gene.ipr								[基因与IPR的对应情况]
+|	|	|	|	|	|-- *.go.png										[基因所对应的GO的二级分类统计直方图]
+
+
+ilikeorange	-1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.kegg.functional_classification_2.png
+ilikeapple	plist	
+|	|	|	|	|	|-- *.kegg.list.filter									[KEGG数据库进行BLAST比对结果]
+|	|	|	|	|	|-- *.kegg.list.anno									[KEGG数据库注释的结果文件]
+|	|	|	|	|	|-- *.kegg.functional_classification_2.png				[KEGG功能分类图]
+|	|	|	|	|	|-- *.kegg.list.catalog.map.gene						[KEGG代谢通路图注释上的基因信息]
+|	|	|	|	|	|-- KEGG_MAP/*									[KEGG功能代谢通路图]
+
+ilikeorange	-1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.swissprot.list.filter
+ilikeapple	plist	
+|	|	|	|	|	|-- *.swissprot.list.filter								[SwissProt数据库进行BLAST比对结果]
+|	|	|	|	|	|-- *.swissprot.list.anno								[SwissProt数据库注释的结果文件]
+
+ilikeorange	-1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.cog.list.cogclass.png
+ilikeapple	plist	
+|	|	|	|	|	|-- *.cog.list.filter									[COG数据库进行BLAST比对结果]
+|	|	|	|	|	|-- *.cog.list.anno									[COG数据库注释的结果文件]
+|	|	|	|	|	|-- *.cog.list.class.catalog							[COG各大分类功能描述文件]
+|	|	|	|	|	|-- *.cog.list.cogclass.png							[COG功能分类统计图]
+
+ilikeorange	-1	1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.nr.list.filter
+ilikeapple	plist	
+|	|	|	|	|	|-- *.nr.list.filter									[NR数据库进行BLAST比对结果]
+|	|	|	|	|	|-- *.nr.list.anno									[NR数据库注释的结果文件]
+
+ilikeorange	-1	1	Abstract/EffectiveT3.stat.xls,Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno,Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.ardb.list.anno,Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.vfdb.list.anno,Abstract/Cazy.stat.xls
+ilikeapple	plist	
+|	|	|	|	|--Pathogen_Analysis/									[致病性分析]
+
+ilikeorange	-1	1	Abstract/EffectiveT3.stat.xls
+ilikeapple	plist	
+|	|	|	|	|	|-- *.effectiveT3.xls									[EffectiveT3 软件预测结果文件]
+|	|	|	|	|	|-- *.effectiveT3.stat.xls								[EffectiveT3 软件预测结果统计]
+
+ilikeorange	-1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno
+ilikeapple	plist	
+|	|	|	|	|	|-- *.phi.list.filter									[PHI数据库进行BLAST比对结果]
+|	|	|	|	|	|-- *.phi.list.anno									[PHI数据库注释的结果文件]
+
+ilikeorange	-1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.ardb.list.anno,Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.vfdb.list.anno
+ilikeapple	plist	
+|	|	|	|	|	|--Animal/										[动物致病菌致病性和耐药性分析]
+ilikeorange	-1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.ardb.list.anno
+ilikeapple	plist	
+|	|	|	|	|	|	|-- *.ardb.list.filter								[ARDB数据库进行BLAST比对结果]
+|	|	|	|	|	|	|-- *.ardb.list.anno								[经过过滤的ARDB数据库注释的结果文件]
+|	|	|	|	|	|	|-- *.ardb.list.anno.all							[ARDB数据库注释的结果文件]
+
+ilikeorange	-1	1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.vfdb.list.anno
+ilikeapple	plist	
+|	|	|	|	|	|	|-- *.vfdb.list.filter								[VFDB数据库进行BLAST比对结果]
+|	|	|	|	|	|	|-- *.vfdb.list.anno								[VFDB数据库注释的结果文件]
+
+ilikeorange	-1	1	Abstract/Cazy.stat.xls
+ilikeapple	plist	
+|	|	|	|	|	|--Plant/											[植物致病菌致病性和耐药性分析]
+|	|	|	|	|	|	|-- *.cazy.list.filter								[CAZy数据库进行BLAST比对结果]
+|	|	|	|	|	|	|-- *.cazy.list.anno								[CAZy数据库注释的结果文件]
+|	|	|	|	|	|	|-- *.cazy.list.catalog							[CAZy数据库所有分类的基因信息]
+|	|	|	|	|	|	|-- *.cazy.5class.stat.xls							[CAZy数据库五大类统计结果]
+|	|	|	|	|	|	|-- *.cazy.allclass.stat.xls							[CAZy数据库所有分类的统计结果]
+
+ilikeorange	-1	1	Separate/*/5.Genome_Circle/*.Circle.png
+ilikeapple	plist	
+|	|	|	|-- 5.Genome_Circle/										[基因组环形图结果]
+|	|	|	|	|-- *.Circle.png										[基因组环形图结果文件]
+

@@ -1,0 +1,149 @@
+
+body{
+	font-family:"SimSun","Arial";
+
+}
+
+/*for first title*/
+p{
+	line-height:35px
+}
+.p{
+	font-size:26;
+	font-weight:bold;
+color:#0764C2
+}
+
+/*for second title*/
+.p2{
+	font-size:25;
+color:#0764C2
+}
+
+/*for third title*/
+.p2{
+	font-size:24;
+color:#0764C2
+}
+/*for third title*/
+.p3{
+	font-size:23;
+color:#0764C2
+}
+
+/*for forth title*/
+.p4{
+	font-size:21;
+color:#0764C2
+}
+
+
+/* for main content for every paragraph */
+.pcontent{
+	font-size:19;
+}
+
+/* word only for png */
+.pngdetail{
+	/*	padding-left:200px;
+		padding-right:200px; */
+	font-size:17;
+}
+/**/
+.headerclass{
+	border-top:1px solid #333;
+	border-bottom:1px solid #333;
+padding:1px 8px 1px 5px;
+}
+
+.seprateclass{
+	background-color:black;
+	border:0 px solid black
+}
+.singleclass1{
+	border:0;
+        background-color: #C4E1E1;
+	padding:1px 8px 1px 5px;
+}
+
+.doubleclass1{
+	background-color:#81C0C0;
+	border:0;
+	padding:1px 8px 1px 5px;
+}
+
+.singleclass2{
+	border:0;
+        background-color: #CCCCCC;
+	padding:1px 8px 1px 5px;
+}
+
+.doubleclass2{
+	background-color: #999999;
+	border:0;
+	padding:1px 8px 1px 5px;
+}
+
+.tailsingle1{
+	background-color: #C4E1E1;
+	border-bottom:1px solid #333;
+	padding:1px 8px 1px 5px;
+
+}
+.taildouble1{
+	background-color:#81C0C0;
+	border-bottom:1px solid ;	
+	padding:1px 8px 1px 5px;
+}
+
+.tailsingle2{
+	background-color: #CCCCCC;
+	border-bottom:1px solid #333;
+	padding:1px 8px 1px 5px;
+
+}
+.taildouble2{
+	background-color: #999999;
+	border-bottom:1px solid #333;	
+	padding:1px 8px 1px 5px;
+}
+.pfasta{
+
+	background-color: rgb(241, 245, 208);
+
+}
+
+.pbold{
+	font-size:20;
+	font-weight:bold;
+
+}
+
+a{text-decoration:none}
+.left{
+		font-size:14;
+		position:fixed;
+		top:11%;
+		    margin-top:1%;
+		    width:21%;
+		    overflow:hidden;
+
+
+}
+
+
+tr:link    {color:blue;}
+tr:visited {color:blue;}
+tr:hover   {background-color: #B0E0E6;}
+tr:active  {color:yellow;}
+
+.detail{
+	cursor:hand;
+	width:100%;
+	      background-color: #c8c8c8;
+}
+.tt{
+	width:100%;
+}
+
+

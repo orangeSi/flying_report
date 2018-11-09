@@ -1,0 +1,6 @@
+行数	说明
+1	@Reads ID
+2	碱基序列
+3	+ Reads ID （Reads ID可省略）
+4	碱基质量
+

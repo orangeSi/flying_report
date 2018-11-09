@@ -1,0 +1,12 @@
+Sample Name	Type	Number(#)	Average Length(bp)	Total Length(bp)	In Genome(%)
+	tRNA	134	78	10,519	0.1786
+	rRNA_de 5s	13	116	1,508	
+	rRNA_de 16s	12	1,540	18,483	0.9277
+1-3T	rRNA_de 23s	12	2,888	34,650	
+	sRNA	13	156	2,031	0.0345
+
+	tRNA	130	78	10,225	0.1967
+	rRNA_de 5s	13	116	1,508	
+	rRNA_de 16s	12	1,540	18,482	1.0508
+1-4T	rRNA_de 23s	12	2,887	34,648	
+	sRNA	13	156	2,038	0.0392

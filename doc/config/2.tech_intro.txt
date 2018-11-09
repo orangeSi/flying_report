@@ -1,0 +1,50 @@
+
+ilikeorange	0			0		null		
+ilikeapple	p			2技术简介
+
+ilikeorange	1			1	Abstract/.only_assembly
+ilikeapple	p2			2.1产品说明	
+ilikeapple	pcontent		小基因组Denovo测序项目是对小基因组(质粒、病毒、线粒体等)测序后从头组装。步骤为先将染色体DNA机械地随机切割成一定相对分子质量范围的片段，分别构建不同的测序文库，然后进行Illumina平台与PacBio平台大规模测序。最后基于PacBio测序数据、Illumina 测序数据，采用基因组组装软件分析，把目标基因组序列完整的组装出来。
+
+ilikeorange	1			1	Abstract/.assemly_analysis
+ilikeapple	p2			2.1产品说明	
+ilikeapple	pcontent		小基因组Denovo测序项目是对小基因组(质粒、病毒、线粒体等)测序后从头组装。步骤为先将染色体DNA机械地随机切割成一定相对分子质量范围的片段，分别构建不同的测序文库，然后进行Illumina平台与PacBio平台大规模测序。最后基于PacBio测序数据、Illumina 测序数据，采用基因组组装软件分析，把目标基因组序列完整的组装出来。
+在组装结果的基础上，进行基因组组分分析、功能注释、比较基因组等分析，推测ORF是否为真实蛋白编码序列，检查功能位点，分析共有序列或特征序列、单个基因或基因间相互作用、表达调控等功能、比较不同菌株之间的差异、进化关系等等。Denovo测序已取代传统方法成为研究菌株的关键功能基因、进化遗传机制重要工具。
+
+ilikeorange	1			1	Abstract/.only_filter
+ilikeapple	p2			2.1产品说明
+ilikeapple	pcontent		基于单分子，实时测序Single-Molecule, Real-Time(SMRT)技术：建好的文库放在SMRT Cell上进行测序，SMRT cell中有15万个Zero-Mode Waveguides (ZMWs)孔，每个孔下面固定DNA合成酶，当待测DNA分子下降到孔中时会与DNA合成酶结合，同时在该酶的催化下，进行了DNA链的合成。由于使用了带有荧光标记的dNTP，在合成时荧光基团会发出亮光，通过检测亮光来读取碱基。该机器具有NGS所达不到的超长读长，同时由于是“自然”的链合成，异常GC区域对于其测序无影响，因此对于基因组组装等有较大作用.
+
+ilikeorange     1			1	Abstract/pacbio_cleandata.xls,Abstract/hiseqcleandata.xls	
+ilikeapple	p2			2.2 实验简介
+
+ilikeorange     2			1	Abstract/hiseqcleandata.xls
+ilikeapple	p3			2.2.1 Illumina Hiseq 4000平台
+ilikeapple      pcontent		提取基因组DNA并随机打断，电泳回收所需长度的DNA片断，并加上接头进行cluster制备，最后上机测序。下面为建库方法和测序流程的详细描述。
+ilikeapple      pngs			0	default/illuminate_lib_piple.png,
+ilikeapple      pngdetail		图2-1 实验流程 DNA样品被接收后，对样品进行检测；然后用检测合格的样品构建文库：首先采用超声法Covaris或者Bioruptor将大片段DNA(如基因组DNA、BAC或长片段PCR产物)随机打断并产生某长度DNA片段，然后用T4 DNA Polymerase、Klenow DNA Polymerase和T4 PNK将打断形成的粘性末端修复成平末端，再通过3' 端加碱基“A”，使得DNA片段能与3' 端带有“T”碱基的特殊接头连接，用电泳法选择需回收的目的片段连接产物，再使用PCR技术扩增两端带有接头的DNA片段；最后，用合格的文库进行cluster制备和测序
+
+ilikeorange	2			1	Abstract/pacbio_cleandata.xls
+ilikeapple      p3			2.2.2 Pacbio RSII平台
+ilikeapple      pcontent		实验过程中每个步骤（如样品检测、文库构建、测序等）都将影响数据的质量和数量，进而直接影响信息分析结果。为了得到高度可信的测序数据，我们在实验的每个步骤进行严格的质量控制。文库准备方法、测序过程如下图2：
+ilikeapple      pngs			0	default/pacbio_lib_piple.png
+ilikeapple      pngdetail		Figure 2-2 PacBio experimental process. Pipeline of PacBio experiment. DNA is treated into fragments with proper size by g-TUBE at first. Then the fragments are damage repaired and ends repaired. Both sides of DNA fragments are respectively connected with hairpin adapter to get a dumbbell (set of horse ring) structure, which is known as SMRTbell. After annealing, the SMRTbell is fixed at the bottom of the ZWM polymerase, it will be used for sequencing at last.
+
+ilikeorange	1			1	Abstract/assembly.xls
+ilikeapple      p2			2.3信息分析简介
+
+ilikeorange	2			1	Abstract/assembly.xls
+ilikeapple      p3			2.3.1细菌完成图组装分析说明
+ilikeapple      pcontent		细菌完成图组装分为基因组检测、完成图组装两个过程，分析流程详细如下图所示。
+ilikeapple      pngs			0	default/assembly_piple.png
+ilikeapple      pngdetail		图2-3 细菌完成图分析流程图
+ilikeapple      pcontent		（1）基因组检测：此阶段目的在于通过生物信息方法快速地获得目标菌株的基因组信息和样品情况，包括目标菌株的基因组大小、GC含量、重复序列情况、质粒情况、非一致序列情况等信息。
+（2）完成图组装：此阶段就是把目标菌株的基因组序列完整的组装出来，即达到完成图水平。基于目标菌株基因组的复杂性，可能需要使用多种平台数据和多种组装软件对序列进行组装和优化。
+
+ilikeorange	2			1	Abstract/assembly.xls
+ilikeapple	p3			2.3.2菌株生物信息分析说明
+ilikeapple	pcontent		基于组装结果进行信息分析。下面为信息分析内容的详细描述。
+ilikeapple	pngs			0	default/anaysis_piple.png
+ilikeapple	pngdetail		图2-4 信息分析流程图 (1)基因组组分分析，包括(a)重复序列分析：包括串联重复序列以及小卫星序列、微卫星序列分析；(b)CRISPR预测；(c)非编码RNA预测：包括rRNA、tRNA和sRNA；(d)基因岛预测；(e)前噬菌体预测；(f)基因成分；(2)基因功能分析，包括(a)通用功能注释：使用GO、KEGG和Swiss-Prot，以及NR和COG数据库对预测获得的ORF区域进行功能注释；(b)动物病原菌致病性和耐药性分析：包括三型分泌系统效应蛋白预测，PHI、VFDB、ARDB数据库注释；(c)植物病原菌致病性分析：包括三型分泌系统效应蛋白预测，CAZy、PHI数据库注释；(3)比较基因组分析，包括 (a)结构变异（共线性分析）；(b)共有基因和特有基因分析；(c)物种进化分析，包括构建系统进化树；(d)基因家族分析；(4)撰写结题报告。
+
+

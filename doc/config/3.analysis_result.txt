@@ -1,0 +1,200 @@
+ilikeorange	0		0	null
+ilikeapple	p		3信息分析结果
+ilikeorange	1		1	Abstract/hiseqcleandata.xls,Abstract/PacbioCleandata.xls
+ilikeapple	p2		3.1 数据概况
+
+ilikeorange	2		1	Abstract/hiseqcleandata.xls
+ilikeapple	p3		3.1.1 Illumina Hiseq 4000平台数据
+ilikeapple	pcontent	原始数据过滤统计：
+ilikeapple	table		Abstract/hiseqcleandata.xls
+ilikeapple	pcontent	Clean Data 碱基组成和质量分布图：
+ilikeapple	pngs		1	2	Separate/xxxx/1.Cleandata/*{base,qual}.png
+ilikeapple	pcontent	结果目录：Separate/Sample name/1.Cleandata/
+
+ilikeorange	2		1	Abstract/PacbioCleandata.xls
+ilikeapple	p3		3.1.2 Pacbio RSII 平台数据
+ilikeapple	pcontent	原始数据过滤统计：
+ilikeapple	table		Abstract/PacbioCleandata.xls
+ilikeapple	pcontent	Polymerase Read及Subreads长度及质量分布图：
+ilikeapple	pngs		1	2	Separate/xxxx/1.Cleandata/*Pacbio.Clean.png
+ilikeapple	pcontent	结果目录：Separate/Sample name/1.Cleandata/
+
+ilikeorange	1		1	Abstract/assembly.xls,Abstract/Assembly.Evaluate.xls,Abstract/Repeat.stat.xls,Separate/*/2.Assembly/*GC-depth.png
+ilikeapple	p2		3.2 基因组概况
+
+
+ilikeorange	2		1	Abstract/kmer.stat.xls
+ilikeapple	p3		3.2.1基因组预估
+ilikeapple	pcontent	组装前，基于Hiseq数据，通过k-mer分析初步判断样品的基因组大小(仅供参考，实际以组装结果为准)、杂合情况和重复序列信息，具体信息如下：
+ilikeapple	pcontent	各样品菌株k-mer分析统计如下表：
+ilikeapple	table		Abstract/kmer.stat.xls
+ilikeapple	pcontent	各样品菌株k-mer图如下：
+ilikeapple	pngs		1	2	Separate/xxxx/2.Assembly/*.kmer.png	
+ilikeapple      pcontent        结果目录：Separate/Sample name/2.Assembly
+
+
+ilikeorange	2		1	Abstract/assembly.xls
+ilikeapple	p3		3.2.2组装结果统计
+ilikeapple	pcontent	基于Pacbio RSII数据与Illumina Hiseq 4000数据，采用基因组组装软件分析，各样品菌株组装统计如下表：
+ilikeapple	table		Abstract/assembly.xls
+
+ilikeorange	2		1	Abstract/Assembly.Evaluate.xls
+ilikeapple	p3		3.2.3组装结果质控
+ilikeapple	pcontent	对组装得到的结果质控分析，主要采用Illumina Hiseq 4000数据对组装结果进行评估，质控结果如下表：
+ilikeapple	table		Abstract/Assembly.Evaluate.xls
+
+
+ilikeorange	2		1	Abstract/Repeat.stat.xls
+ilikeapple	p3		3.2.4重复序列统计
+ilikeapple	pcontent	评估基因组中重复序列的含量，统计如下表：
+ilikeapple	table		Abstract/Repeat.stat.xls
+ilikeapple	pcontent	结果目录：Separate/Sample name/2.Assembly/
+
+
+ilikeorange	2		1	Separate/*/2.Assembly/*GC-depth.png	
+ilikeapple	p3		3.2.5 GC-Depth评估
+ilikeapple	pcontent	组装后，通过GC-Depth分析菌株的GC偏向性，分析结果如下图所示：
+ilikeapple	pngs		1	2	Separate/xxxx/2.Assembly/*GC-depth.png
+ilikeapple	pcontent	结果目录：Separate/Sample name/2.Assembly/
+
+ilikeorange	1		1	Separate/*/3.Genome_Component/Tandem_Repeat/*.TRF.stat,Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat.filter,Separate/*/3.Genome_Component/Gene_Prediction/*.gene.stat,Separate/*/3.Genome_Component/ncRNA_Finding/*.ncRNA.stat,Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat,Separate/*/3.Genome_Component/Prophage/3T.Prophage.txt,Separate/*/3.Genome_Component/CRISPR/*.CRISPR.stat
+ilikeapple	p2		3.3 基因组组分
+
+ilikeorange	2		1	Separate/*/3.Genome_Component/Gene_Prediction/*.gene.stat
+ilikeapple	p3		3.3.1 基因成分
+ilikeapple	pcontent	对组装结果进行基因预测，统计结果如下：
+ilikeapple	table		Separate/*/3.Genome_Component/Gene_Prediction/*.gene.stat
+ilikeapple	pcontent	基因长度分布图：
+ilikeapple	pngs		1	2	Separate/xxxx/3.Genome_Component/Gene_Prediction/*.cds.png
+ilikeapple	pcontent	结果目录：Separate/Sample name/3.Genome_Component/Gene_Prediction/。
+
+ilikeorange	2		1	Separate/*/3.Genome_Component/Tandem_Repeat/*.TRF.stat
+ilikeapple	p3		3.3.2 重复序列
+ilikeapple	pcontent	串联重复序列（Tandem Repeat,TR），即相邻的重复两次或多次特定核酸序列模式的重复序列。重复单元可以从1bp到500 bp，表现出种属组成特异性，可作为物种的遗传性状，进行进化关系的研究。其中Minisatellite DNA，小卫星DNA，又称数目可变串联重复序列，是一种重复DNA小序列，由15-65 bp的基本单位串联而成。Microsatellite DNA，微卫星DNA又称短串联重复或简单串联重复序列，长度约2-10 bp。不同种属之间重复的单位和次数不同，可作为分子标记。
+ilikeapple	pcontent	串联重复序列分析结果：
+ilikeapple	table		Separate/*/3.Genome_Component/Tandem_Repeat/*.TRF.stat
+ilikeapple	pcontent	结果目录： Separate/Sample name/3.Genome_Component/Tandem_Repeat/。
+
+ilikeorange	2		1	Separate/*/3.Genome_Component/ncRNA_Finding/*.ncRNA.stat
+ilikeapple	p3		3.3.3 非编码RNA
+ilikeapple	pcontent	rRNA：核糖体RNA。原核生物的核糖体所含的rRNA有5S rRNA、16S rRNA及23S rRNA三种。通常，5S含有120个核苷酸，16S含有1,540个核苷酸，而23S含有2,900个核苷酸。
+tRNA：转运RNA。在蛋白的合成过程中起重要的作用。
+sRNA：细菌中，长度在50～500 nt 的ncRNA通常定义为小RNA(sRNA)。在转录后水平调节基因的表达，可以在细菌的代谢，环境适应等方面起到调节因子的作用。
+ncRNA分析统计表：
+ilikeapple	table		Separate/*/3.Genome_Component/ncRNA_Finding/*.ncRNA.stat
+ilikeapple	pcontent	结果目录：Separate/Sample name/3.Genome_Component/ncRNA_finding/。
+
+ilikeorange	2		1	Separate/*/3.Genome_Component/Genomic_Island/*.GIs.blat*xls
+ilikeapple	p3		3.3.4 基因岛（GIs）
+ilikeapple	pcontent	预测基因岛的软件主要有IslandPath-DIOMB 、SIGI-HMM、 IslandPicker、和IslandViewer。其中，IslandPath-DIOMB 和SIGI-HMM是基于序列构成的预测方法；IslandPicker是基于多基因组比较的预测方法。而软件IslandViewer是前三种软件的整合版，可通过上传所测基因组的gbk格式文件，在线预测并查看预测结果，但目前只针对完成图。
+结果目录：Separate/Sample name/3.Genome_Component/Genomic_Island/。
+
+ilikeorange	2		1	Separate/*/3.Genome_Component/Prophage/*Prophage*
+ilikeapple	p3		3.3.5 前噬菌体（Prophage）
+ilikeapple	pcontent	整合在宿主基因组上的温和噬菌体的核酸称之为前噬菌体。
+带有前噬菌体的菌称为溶源菌，它们具有无需由外部感染而可产生噬菌体的遗传能力，并且这种能力可传递给后代。如果提供适当条件打破保持前噬菌体状态的机制，噬菌体基因组即变为可增殖型而进行自主增殖，并使细胞裂解。
+前噬菌体序列的存在可能也会允许一些细菌获取抗生素抗性，增强对环境的适应性，提高粘附力或使细菌成为致病菌。
+同时，通过前噬菌体的研究可能找到特异的抗生素甚至是先进的癌症治疗方法。
+结果目录：Separate/Sample name/3.Genome_Component/Prophage/。
+
+ilikeorange	2		1	Separate/*/3.Genome_Component/CRISPR/*.CRISPR.stat
+ilikeapple	p3		3.3.6 CRISPR
+ilikeapple	pcontent	使用CRISPRFinder软件，识别CRISPRs，得到DRs和Spacers。具体见方法部分。
+结果目录：Separate/Sample name/3.Genome_Component/CRISPR/。
+
+ilikeorange	1		1	Separate/*/4.Genome_Function/*.annotation.table.xls,Abstract/EffectiveT3.stat.xls,Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno,Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.vfdb.list.anno,Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.ardb.list.anno,
+ilikeapple	p2		3.4 基因功能分析
+
+ilikeorange	2		1	Separate/*/4.Genome_Function/*.annotation.table,Separate/*/4.Genome_Function/General_Gene_Annotation/*.go.png,Separate/*/4.Genome_Function/General_Gene_Annotation/*.kegg.functional_classification_2.png,Separate/*/4.Genome_Function/General_Gene_Annotation/*.cog.list.cogclass.png,Separate/*/4.Genome_Function/General_Gene_Annotation/*.nr.list.anno.xls
+ilikeapple	p3		3.4.1 通用功能注释
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.go.png	
+ilikeapple	p4		3.4.1.1 GO数据库注释
+ilikeapple	pcontent	GO的全称是Gene Ontology，1988年由基因本体联合会创立基因本体论数据库，其分为三大类：1）细胞学组件（Cellular Component）：用于描述亚细胞结构、位置和大分子复合物，如核仁、端粒和识别起始的复合物等；2）分子功能（Molecular Function）：用于描述基因、 基因产物个体的功能， 如与碳水化合物结合或 ATP 水解酶活性等；3）生物学途径（Biological Process）：用于描述分子功能的有序组合，达成更广的生物功能，如有丝分裂或嘌呤代谢等。
+基因将依据产物性质归属到其中一类或者多类中。通过GO数据库注释，我们可以依据基因在不同大类中注释的情况，判断其可能的功能。各个样品GO数据库三大分类统计结果如下图：
+ilikeapple	pngs		1	2	Separate/xxxx/4.Genome_Function/General_Gene_Annotation/*.go.png
+ilikeapple	pcontent	结果目录：Separate/Sample name/4.Genome_Function/General_Gene_Annotation/
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.kegg.functional_classification_2.png
+ilikeapple	p4		3.4.1.2 KEGG数据库注释
+ilikeapple	pcontent	KEGG全称为Kyoto Encyclopedia of Genes and Genomes，1995年由Kanehisa Laboratories推出0.1版，目前发展为一个综合性数据库，其中最核心的为KEGG PATHWAY数据库。该数据库将生物通路划分为八大类，每一大类下还有细分，每一类均标示上与之相关的基因，同时以图形的方式展示出来。通过该数据库注释，可以方便地寻找与行使某一类功能相关的所有注释上的基因。
+下图是按照KEGG二级分类统计后获得的柱状图，用于总览注释情况：
+ilikeapple	pngs		1	2	Separate/xxxx/4.Genome_Function/General_Gene_Annotation/*.kegg.functional_classification_2.png
+ilikeapple       pcontent        结果目录：Separate/Sample name/4.Genome_Function/General_Gene_Annotation
+
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.cog.list.cogclass.png
+ilikeapple	p4		3.4.1.3 COG数据库注释
+ilikeapple	pcontent	COG，全称是Cluster of Orthologous Groups of proteins，由NCBI创建并维护的蛋白数据库，根据细菌、藻类和真核生物完整基因组的编码蛋白系统进化关系分类构建而成。通过比对可以将某个蛋白序列注释到某一个COG中，每一簇COG由直系同源序列构成，从而可以推测该序列的功能。COG数据库按照功能一共可以分为二十五类，其统计结果如下图：
+ilikeapple	pngs		1	2	Separate/xxxx/4.Genome_Function/General_Gene_Annotation/*.cog.list.cogclass.png
+ilikeapple	pcontent	结果目录：Separate/Sample name/4.Genome_Function/General_Gene_Annotation/
+
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.swissprot.list.filter.xls
+ilikeapple	p4		3.4.1.4 Swiss-Prot数据库注释
+ilikeapple	pcontent	Swiss-Prot，是2002年由UniProt consortium建立的基因数据库，其特点在注释结果经过实验验证，可靠性较高，可用作其他数据的参考。
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/General_Gene_Annotation/*.nr.list.anno.xls
+ilikeapple	p4		3.4.1.5 NR数据库注释
+ilikeapple	pcontent	NR全称为Non-Redundant Protein Database，是一个非冗余的蛋白质数据库，由NCBI创建并维护，其特点在于内容比较全面，同时注释结果中会包含有物种信息，可作物种分类用。缺点在于过多的数据未经过验证，可靠性尚有不足。
+结果目录：Separate/Sample name/4.Genome_Function/General_Gene_Annotation/。
+
+
+ilikeorange	2		1	Abstract/EffectiveT3.stat.xls,Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno,Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.vfdb.list.anno,Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.ardb.list.anno	
+ilikeapple	p3		3.4.2 动物病原细菌致病性和耐药性分析
+
+ilikeorange	3		1	Abstract/EffectiveT3.stat.xls
+ilikeapple	p4		3.4.2.1 III型分泌系统效应蛋白预测
+ilikeapple	pcontent	III型分泌系统效应蛋白（Type III secretion system Effector protein，T3SS），与革兰氏阴性致病菌致病机理有关。病原菌通过TXSS(type X secretion systems，目前确定的有7种,I型—VII型)将该类蛋白分泌至胞外或是宿主细胞中，通过控制免疫应答反应以及细胞衰亡引起病理反应，而其中T3SS是研究得比较多的分泌系统，其通常用来从分子水平研究病原菌，感染机制，毒力作用等。
+ilikeapple	table		Abstract/EffectiveT3.stat.xls
+ilikeapple	pngdetail	说明：从左往右分别为样品名称、预测蛋白总数、EffectiveT3预测出分泌蛋白数量、第四列为所预测非分泌蛋白的数量。
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno
+ilikeapple	p4		3.4.2.2 病原与宿主互作数据库（PHI）注释
+ilikeapple	pcontent	PHI全称为Pathogen Host Interactions，病原与宿主互作数据库，其内容经过实验验证，主要来源于真菌、卵菌和细菌病原，感染的宿主包括动物、植物、真菌以及昆虫。
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.vfdb.list.anno
+ilikeapple	p4		3.4.2.3 细菌致病菌毒力因子（VFDB）注释
+ilikeapple	pcontent	VFDB数据库全称为Virulence Factors of Pathogenic Bacteria，用于专门研究致病细菌、衣原体和支原体致病因子的数据库。其包含24个种，共425个致病因子，24个致病岛，2,359个与毒力因子相关的基因。
+
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/Pathogen_Analysis/Animal/*.ardb.list.anno
+ilikeapple	p4		3.4.2.4 耐药基因（ARDB）注释
+ilikeapple	pcontent	ARDB数据库全称为Antibiotic Resistance Genes Database，通过该数据库的注释，可以找到耐药性相关基因的名称，所耐受的抗生素种类等信息。该数据库包含13,293个基因，共377种类型、257种抗生素、124个门3,369个物种。
+结果目录：Separate/Sample name/4.Genome_Function/Pathogen_Analysis/Animal/。
+
+ilikeorange	2		1	Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno,Abstract/Cazy.stat.xls
+ilikeapple	p3		3.4.3 植物病原细菌致病性分析
+
+ilikeorange	3		1	Separate/*/4.Genome_Function/Pathogen_Analysis/*.phi.list.anno
+ilikeapple	p4		3.4.3.1 病原与宿主互作数据库（PHI）数据库注释
+ilikeapple	pcontent	PHI全称为Pathogen Host Interactions，病原与宿主互作数据库，其内容经过实验验证，主要来源于真菌、卵菌和细菌病原，感染的宿主包括动物、植物、真菌以及昆虫。
+
+
+ilikeorange	3		1	Abstract/Cazy.stat.xls
+ilikeapple	p4		3.4.3.2 碳水化合物相关酶（CAZy）数据库注释
+ilikeapple	pcontent	CAZy 全称为Carbohydrate-Active enZYmes Database，碳水化合物酶相关的专业数据库，内容包括能催化碳水化合物降解、修饰、以及生物合成的相关酶系家族。其包含四个主要分类：糖苷水解酶（Glycoside Hydrolases, GHs）、糖基转移酶（Glycosyl Transferases, GTs）、多糖裂解酶（Polysaccharide Lyases, PLs）和糖类酯解酶（Carbohydrate Esterases, CEs）。此外，还包含与碳水化合物相关的modules（Carbohydrate-Binding Modules，CBMs）。
+ilikeapple	pngdetail	表4-2 碳水化合物酶分类注释结果
+ilikeapple	table		Abstract/Cazy.stat.xls
+ilikeapple	pngdetail	说明：从左往右为样品名称、与碳水化合物相关的modules（CBMs）的数目、糖类酯解酶（CEs）的数目、糖苷水解酶（GHs）的数目、糖基转移酶（GTs）的数目和多糖裂解酶（PLs）的数目。
+ilikeapple	pcontent	结果目录：Separate/Sample name/4.Genome_Function/Pathogen_Analysis/Plant/。
+
+ilikeorange	1		1	Separate/*/5.Genome_Circle/*.Circle.png
+ilikeapple	p2		3.5 基因组环形图
+ilikeapple	pcontent	根据基因组序列绘出其GC图，使用（G–C）/（G+ C）的计算方法来进行GC skew分析，同时根据COG的注释结果和基因的位置信息绘出COG注释的基因在基因组上的分布情况。
+ilikeapple	pngs		1	2	Separate/xxxx/5.Genome_Circle/*.Circle.png
+ilikeapple	pcontent	结果目录：Separate/Sample Name/5.Genome_Circle
+
+
+	
+
+
+
+
+
+
+
+
+
+
+

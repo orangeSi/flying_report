@@ -1,0 +1,284 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link href='css/base.css' rel='stylesheet' type='text/css' /></head><body><h1><p id="p2" class="p">2技术简介</p></h1>
+<h2><p id="p2.1" class="p2">2.1产品说明</p></h2>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;小基因组Denovo测序项目是对小基因组(质粒、病毒、线粒体等)测序后从头组装。步骤为先将染色体DNA机械地随机切割成一定相对分子质量范围的片段，分别构建不同的测序文库，然后进行Illumina平台与PacBio平台大规模测序。最后基于PacBio测序数据、Illumina 测序数据，采用基因组组装软件分析，把目标基因组序列完整的组装出来。</p>
+<h2><p id="p2.2" class="p2">2.2 实验简介</p></h2>
+<h3><p id="p2.2.1" class="p3">2.2.1 Illumina Hiseq 4000平台</p></h3>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提取基因组DNA并随机打断，电泳回收所需长度的DNA片断，并加上接头进行cluster制备，最后上机测序。下面为建库方法和测序流程的详细描述。</p>
+
+<p class="img"  align="center" ><img src="png/illuminate_lib_piple.png" width="70%" title="png/illuminate_lib_piple.png" /></p><br>
+<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图2-1 实验流程 DNA样品被接收后，对样品进行检测；然后用检测合格的样品构建文库：首先采用超声法Covaris或者Bioruptor将大片段DNA(如基因组DNA、BAC或长片段PCR产物)随机打断并产生某长度DNA片段，然后用T4 DNA Polymerase、Klenow DNA Polymerase和T4 PNK将打断形成的粘性末端修复成平末端，再通过3' 端加碱基“A”，使得DNA片段能与3' 端带有“T”碱基的特殊接头连接，用电泳法选择需回收的目的片段连接产物，再使用PCR技术扩增两端带有接头的DNA片段；最后，用合格的文库进行cluster制备和测序</p>
+<h3><p id="p2.2.2" class="p3">2.2.2 Pacbio RSII平台</p></h3>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验过程中每个步骤（如样品检测、文库构建、测序等）都将影响数据的质量和数量，进而直接影响信息分析结果。为了得到高度可信的测序数据，我们在实验的每个步骤进行严格的质量控制。文库准备方法、测序过程如下图2：</p>
+
+<p class="img"  align="center" ><img src="png/pacbio_lib_piple.png" width="70%" title="png/pacbio_lib_piple.png" /></p><br>
+<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Figure 2-2 PacBio experimental process. Pipeline of PacBio experiment. DNA is treated into fragments with proper size by g-TUBE at first. Then the fragments are damage repaired and ends repaired. Both sides of DNA fragments are respectively connected with hairpin adapter to get a dumbbell (set of horse ring) structure, which is known as SMRTbell. After annealing, the SMRTbell is fixed at the bottom of the ZWM polymerase, it will be used for sequencing at last.</p>
+<h2><p id="p2.3" class="p2">2.3信息分析简介</p></h2>
+<h3><p id="p2.3.1" class="p3">2.3.1细菌完成图组装分析说明</p></h3>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;细菌完成图组装分为基因组检测、完成图组装两个过程，分析流程详细如下图所示。</p>
+
+<p class="img"  align="center" ><img src="png/assembly_piple.png" width="70%" title="png/assembly_piple.png" /></p><br>
+<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图2-3 细菌完成图分析流程图</p>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（1）基因组检测：此阶段目的在于通过生物信息方法快速地获得目标菌株的基因组信息和样品情况，包括目标菌株的基因组大小、GC含量、重复序列情况、质粒情况、非一致序列情况等信息。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（2）完成图组装：此阶段就是把目标菌株的基因组序列完整的组装出来，即达到完成图水平。基于目标菌株基因组的复杂性，可能需要使用多种平台数据和多种组装软件对序列进行组装和优化。</p>
+<h3><p id="p2.3.2" class="p3">2.3.2菌株生物信息分析说明</p></h3>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于组装结果进行信息分析。下面为信息分析内容的详细描述。</p>
+
+<p class="img"  align="center" ><img src="png/anaysis_piple.png" width="70%" title="png/anaysis_piple.png" /></p><br>
+<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图2-4 信息分析流程图 (1)基因组组分分析，包括(a)重复序列分析：包括串联重复序列以及小卫星序列、微卫星序列分析；(b)CRISPR预测；(c)非编码RNA预测：包括rRNA、tRNA和sRNA；(d)基因岛预测；(e)前噬菌体预测；(f)基因成分；(2)基因功能分析，包括(a)通用功能注释：使用GO、KEGG和Swiss-Prot，以及NR和COG数据库对预测获得的ORF区域进行功能注释；(b)动物病原菌致病性和耐药性分析：包括三型分泌系统效应蛋白预测，PHI、VFDB、ARDB数据库注释；(c)植物病原菌致病性分析：包括三型分泌系统效应蛋白预测，CAZy、PHI数据库注释；(3)比较基因组分析，包括 (a)结构变异（共线性分析）；(b)共有基因和特有基因分析；(c)物种进化分析，包括构建系统进化树；(d)基因家族分析；(4)撰写结题报告。</p>
+<h1><p id="p3" class="p">3信息分析结果</p></h1>
+<h2><p id="p3.1" class="p2">3.1 数据概况</p></h2>
+<h3><p id="p3.1.1" class="p3">3.1.1 Illumina Hiseq 4000平台数据</p></h3>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原始数据过滤统计：</p>
+<table align="center" width="auto" cellspacing="0" style="word-break:break-all">
+<tr bgcolor="orange" align="center" >
+
+<td class="headerclass">Sample Name</td>
+
+<td class="headerclass">Insert Size  (bp)</td>
+
+<td class="headerclass">Reads Length (bp )</td>
+
+<td class="headerclass">Raw Data (Mb)</td>
+
+<td class="headerclass">Adapter (%)</td>
+
+<td class="headerclass">Duplication (%)</td>
+
+<td class="headerclass">N(%)</td>
+
+<td class="headerclass">Filtered Reads (%)</td>
+
+<td class="headerclass">Low Quality Filtered Reads (%)</td>
+
+<td class="headerclass">Clean Data (Mb)</td>
+</tr>
+<tr align="center" >
+
+<td class="doubleclass1">B37</td>
+
+<td class="doubleclass1">500</td>
+
+<td class="doubleclass1">90:90</td>
+
+<td class="doubleclass1">1,336.14</td>
+
+<td class="doubleclass1">0.759</td>
+
+<td class="doubleclass1">0.073</td>
+
+<td class="doubleclass1">0.008</td>
+
+<td class="doubleclass1">18.20</td>
+
+<td class="doubleclass1">9.986</td>
+
+<td class="doubleclass1">1,093</td>
+</tr>
+<tr align="center" >
+
+<td class="tailsingle1">ACA_DC</td>
+
+<td class="tailsingle1">500</td>
+
+<td class="tailsingle1">90:90</td>
+
+<td class="tailsingle1">1,336.14</td>
+
+<td class="tailsingle1">0.759</td>
+
+<td class="tailsingle1">0.073</td>
+
+<td class="tailsingle1">0.008</td>
+
+<td class="tailsingle1">18.20</td>
+
+<td class="tailsingle1">9.986</td>
+
+<td class="tailsingle1">1,093</td>
+</tr></table><p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clean Data 碱基组成和质量分布图：</p>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结果目录：Separate/Sample name/1.Cleandata/</p>
+<h2><p id="p3.2" class="p2">3.2 基因组概况</p></h2>
+<h3><p id="p3.2.1" class="p3">3.2.1组装结果统计</p></h3>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于Pacbio RSII数据与Illumina Hiseq 4000数据，采用基因组组装软件分析，各样品菌株组装统计如下表：</p>
+<table align="center" width="auto" cellspacing="0" style="word-break:break-all">
+<tr bgcolor="orange" align="center" >
+
+<td class="headerclass">Sample Name</td>
+
+<td class="headerclass">Chromosome Number (#)</td>
+
+<td class="headerclass">Total Length (bp)</td>
+
+<td class="headerclass">N50 Length (bp)</td>
+
+<td class="headerclass">N90 Length (bp)</td>
+
+<td class="headerclass">Max Length (bp)</td>
+
+<td class="headerclass">Min Length (bp)</td>
+
+<td class="headerclass">GC Content (%)</td>
+</tr>
+<tr align="center" >
+
+<td class="doubleclass1">B_39</td>
+
+<td class="doubleclass1">1</td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">68.84 </td>
+</tr>
+<tr align="center" >
+
+<td class="tailsingle1">ACA_DC</td>
+
+<td class="tailsingle1">42</td>
+
+<td class="tailsingle1">2,829,733</td>
+
+<td class="tailsingle1">1,530,041</td>
+
+<td class="tailsingle1">24,887</td>
+
+<td class="tailsingle1">1,530,041</td>
+
+<td class="tailsingle1">620</td>
+
+<td class="tailsingle1">39.78</td>
+</tr></table><h1><p id="p4" class="p">4帮助文档</p></h1>
+<h2><p id="p4.1" class="p2">4.1分析方法描述</p></h2>
+<h3><p id="p4.1.1" class="p3">4.1.1数据过滤</p></h3>
+<h4><p id="p4.1.1.1" class="p4">4.1.1.1	Illumina Hiseq 4000 平台</p></h4>
+<p class="pbold">原始测序数据</p>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;测序得到的原始图像数据经base calling转化为序列数据，我们称之为raw data或raw reads，结果以FASTQ文件格式存储，包含reads的序列以及碱基的测序质量。在FASTQ格式文件中每个read由四行描述，如下：</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@A80GVTABXX:4:1:2587:1979#ACAGTGAT/1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NTTTGATATGTGTGAGGACGTCTGCAGCGTCACCTTTATCGGCCATGGT<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BTTMKZXUUUdddddddddddddddddddddddddddadddddd^WYYU</p>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每个序列共有4行，第1行和第3行是序列名称（有的fq文件为了节省存储空间会省略第三行“＋”后面的序列名称），由测序仪产生；第2行是序列；第4行是序列的测序质量，每个字符对应第2行每个碱基，第四行每个字符对应的ASCII值减去64，即为该碱基的测序质量值，比如c对应的ASCII值为99，那么其对应的碱基质量值是35。从Illumina GA Pipeline v1.5开始，碱基质量值范围为2到41.表4-1 为Illumina HiSeq 4000测序错误率与测序质量值简明对应关系。如果测序错误率用E表示，碱基质量值用sQ表示，则有下列关系：</p>
+<h3><p id="p4.1.2" class="p3">4.1.2 基因组组装</p></h3>
+<h4><p id="p4.1.2.1" class="p4">4.1.2.1完成图组装</p></h4>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成图序列的组装主要基于Pacbio RSII 数据与Illumina Hiseq 4000数据，采用各种基因组组装软件分析，组装出样品中主要的完整的连续的contig，然后在基于得到的contig做单碱基纠正、成环判断等分析，最终得到可信的完成图序列或是染色体水平的contig序列，具体步骤如下：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（1）初步组装评估基因组：使用多种短序列组装软件对处理后的Illumina Hiseq 4000 reads数据进行组装，初步检测基因组大小、GC含量、重复序列情况、质粒情况、非一致序列情况等信息。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（2）Pacbio RSII数据组装构建基本骨架：使用SMRT Analysis v2.3.0 流程中的RS_HGAP Assembly3组装基因组。并且判断是否完整的连续的组装出基因组主要的contig，如果没有组装出主要的contig，将借助Illumina Hiseq 4000数据与Pacbio RSII数据混合组装，进一步纠正Subreads、优化参数等，直到组装出基因组主要的contig。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（3）Contig碱基纠正：利用两轮分析方法对contig进行单碱基纠错。第一轮纠错方法利用Illumina Hiseq 4000数据，采用soapSNP与soapIndel软件对得到的contig进行第一轮纠错分析；第二轮纠错方法也是基于Illumina Hiseq 4000数据，然后采用GATK分析流程来进行纠错分析。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（4）Contig成环处理：采用多种方法判断Contig是否成环，第一种首先判断Contig两端是否已经有overlap，如果有overlap进一步验证成环区域是否可信；第二种采用SSPACE- LongRead软件基于Pacbio RSII数据中Subreads或corrected reads来判断是否成环；第三种如果样品存在比较近源的基因组，可以利用参考序列辅助判断是否成环。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（5）完成图判断：如果Contig判断成环将得到完成图水平的完整序列，如果Contig判断不成环并且已验证物种基因组为环形将只能得到染色体水平完整序列，最后对完整序列做评估分析。</p>
+<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组装结果统计示例：</p>
+<table align="center" width="auto" cellspacing="0" style="word-break:break-all">
+<tr bgcolor="orange" align="center" >
+
+<td class="headerclass">Sample Name</td>
+
+<td class="headerclass">Chromosome Number (#)</td>
+
+<td class="headerclass">Total Length (bp)</td>
+
+<td class="headerclass">N50 Length (bp)</td>
+
+<td class="headerclass">N90 Length (bp)</td>
+
+<td class="headerclass">Max Length (bp)</td>
+
+<td class="headerclass">Min Length (bp)</td>
+
+<td class="headerclass">GC Content (%)</td>
+</tr>
+<tr align="center" >
+
+<td class="doubleclass1">B_39</td>
+
+<td class="doubleclass1">1</td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">9,477,630 </td>
+
+<td class="doubleclass1">68.84 </td>
+</tr>
+<tr align="center" >
+
+<td class="tailsingle1">ACA_DC</td>
+
+<td class="tailsingle1">42</td>
+
+<td class="tailsingle1">2,829,733</td>
+
+<td class="tailsingle1">1,530,041</td>
+
+<td class="tailsingle1">24,887</td>
+
+<td class="tailsingle1">1,530,041</td>
+
+<td class="tailsingle1">620</td>
+
+<td class="tailsingle1">39.78</td>
+</tr></table><p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面统计表各列含有如下：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1）Sample Name：该样品的名称；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2）Chromosome Number（#）：该样品染色体数目；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3）Total Length（bp）：该样品组装结果总长度；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4）N50 Length（bp）：该样品组装结果N50长度；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5）N90 Length（bp）：该样品组装结果N90长度；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6）Max Length（bp）：该样品组装结果中最长染色体长度；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7）Min Length（bp）：该样品组装结果中最短染色体长度；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8）GC Content（%）：该样品组装结果序列GC含量；</p>
+<h2><p id="p4.2" class="p2">4.2软件及数据库</p></h2>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：SMRT Analysis v2.2.0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：https://github.com/PacificBiosciences/SMRT-Analysis/wiki/SMRT-Pipe-Reference-Guide-v2.3.0</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：Celera Assembler[1]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：http://sourceforge.net/projects/wgs-assembler/files/wgs-assembler/wgs-8.3/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：Meraculous[2]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：ftp://ftp.jgi-psf.org/pub/JGI_data/meraculous/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：SOAPsnp[3]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：http://soap.genomics.org.cn/soapsnp.html<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：SOAPIndel<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：http://soap.genomics.org.cn/soapindel.html<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：GATK<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：http://www.broadinstitute.org/gatk/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：SSPACE- LongRead[4]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：www.baseclear.com/bioinformatics-tools/.</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：Tandem Repeats Finder[8]；版本：4.04<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：http://tandem.bu.edu/trf/trf.html<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;常用参数设置：2 7 7 80 10 50 2000 -d -h</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：RNAmmer[9]；版本：1.2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：http://www.cbs.dtu.dk/services/RNAmmer/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;常用参数设置：–s Species –m Type –gff *. rRNA.gff –f *.rRNA.fq<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件：tRNAscan-SE[10]；版本：1.3.1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：http://gtrnadb.ucsc.edu/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;常用参数设置设置：–Spec_tag(BAOG) –o *.tRNA –f *.tRNA.structure<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据库：Rfam[11]；版本：9.1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相关网站：http://rfam.sanger.ac.uk/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;常用参数设置：–p blastn –W 7 –e 1 –v 10000 –b 10000 –m 8 –i subfile –o *.blast.m8</p>
+<h2><p id="p4.3" class="p2">4.3名称解释</p></h2>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>SMRT®Cells:</B> Consumable substrates comprising arrays of zero-mode waveguide nanostructures. SMRT®Cells are used in conjunction with the DNA Sequencing Kit for on-instrument DNA sequencing<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>SMRTbell™ template:</B> A double-stranded DNA template capped by hairpin adapters (i.e., SMRTbell™ adapters) at both ends. A SMRTbell™ template is topologically circular and structurally linear, and is the library format created by the DNA Template Prep Kit.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Zero-Mode Waveguide:</B> A nanophotonic device for confining light to a small observation volume that can be, for example, a small hole in a conductive layer whose diameter is too small to permit the propagation of light in the wavelength range used for detection.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Insert Size:</B> The length of the double-stranded nucleic acid fragment in a SMRTbell template,excluding the hairpin adapteRS II.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Polymerase Reads :</B> A sequence of nucleotides incorporated by the DNA polymerase while reading a template, such as a circular SMRTbell™ template. Polymerase reads are most useful for quality control of the instrument run. Polymerase read metrics primarily reflect movie length and other run parameters rather than insert size distribution. Polymerase reads are trimmed to include only the high quality region; they include sequences from adapters; and can further include sequence from multiple passes around a circular template.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Subread:</B> Each polymerase read is partitioned to form one or more subreads, which contain sequence from a single pass of a polymerase on a single strand of an insert within a SMRTbell™ template and no adapter sequences. The subreads contain the full set of quality values and kinetic measurements. Subreads are useful for applications like de novo assembly, resequencing, base modification analysis, and so on.<br>Clean Data（reads）：即下机数据经过去接头污染、过滤低质量reads、去duplication（针对大片段数据）之后，实际用于组装及分析的数据。</p><p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>BLASR:</B> Used for targeted sequencing. Maps reads against a reference; part of SMRT® Analysis.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Celera® Assembler:</B> Combines Pacific Biosciences’ long reads with short reads generated by other technologies. Used for de novo assembly. Third party software integrated with the SMRT® Analysis suite.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>GATK:</B> Identifies haploid and diploid SNPs using the Broad’s Unified Genotyper software.<br>N50/N90：将组装所得片段（Scaffold/Contig）按照从长到短排序并累加求和，累加值达到基因组总长度一半时的片段长度即是该组装结果的N50值，通常用来衡量组装情况；N90与之类似，即累加长度为基因组总长。</p><h2><p id="p4.4" class="p2">4.4参考文献</p></h2>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1] Istrail et al. (2004) Whole-Genome Shotgun Assembly and Comparison of Human Genome Assemblies. PNAS 101 1916-1921.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2] Chapman JA, Ho I, Sunkara S, Luo S, Schroth GP, et al. (2011) Meraculous: De Novo Genome Assembly with Short Paired-End Reads. PLoS ONE 6(8): e23501. doi:10.1371/journal.pone.0023501<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3] Li R, Li Y, et al (2009). SNP detection for massively parallel whole-genome resequencing. Genome Res. published online May 6, 2009 , doi:10.1101/gr.088013.108<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4] Boetzer M, Henkel CV, Jansen HJ, Butler D and Pirovano W. 2010. Scaffolding pre-assembled contigs using SSPACE. Bioinformatics. 27(4):578-579</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[5] A.L. Delcher, D. Harmon, S. Kasif, O. White, and S.L. Salzberg (1999) Improved microbial gene identification with GLIMMER, Nucleic Acids Research 27:23 4636-4641.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6] S. Salzberg, A. Delcher, S. Kasif, and O. White (1998) Microbial gene identification using interpolated Markov models, Nucleic Acids Research 26:2, 544-548.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[7] Delcher AL， Bratke KA， Powers EC，et  al（2007）. Identifying  bacterial genes and endosymbiont DNA with Glimmer. Bioinformatics, 23(6):673-679.</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[8] G. Benson(1999). Tandem repeats finder: a program to analyze DNA sequences. Nucleic Acids Research, Vol. 27, No. 2, pp. 573-580.</p>
+<h2><p id="p4.5" class="p2">4.5常用数据格式介绍</p></h2>
+<p class="pbold">FASTQ格式</p>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fastq文件举例如下：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read1的fastq文件 x1.fq中第一条reads：</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@FC4290FAAXX:4:1:3:84#CAGATC/1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCAACTATGATAGCCAANAAGGGAAAGCCATAGAG<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abb_aab_aa`a^aba^D[`a_`aaaa`_a_`__a</p>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read2的fastq文件 x2.fq中第一条reads：</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@FC4290FAAXX:4:1:3:84#CAGATC/2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CGAAAGCTAGTGCTAAAGAAAACAATTTATATTTCATAAAATTG<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ab`baa``aa_ba`aaa`aa`b_a^aa`a_aa`a`aa`a_aa_^</p>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式说明如下：</p>
+<table align="center" width="auto" cellspacing="0" style="word-break:break-all">
+<tr bgcolor="orange" align="center" >
+
+<td class="headerclass">行数</td>
+
+<td class="headerclass">说明</td>
+</tr>
+<tr align="center" >
+
+<td class="doubleclass1">1</td>
+
+<td class="doubleclass1">@Reads ID</td>
+</tr>
+<tr align="center" >
+
+<td class="singleclass1">2</td>
+
+<td class="singleclass1">碱基序列</td>
+</tr>
+<tr align="center" >
+
+<td class="doubleclass1">3</td>
+
+<td class="doubleclass1">+ Reads ID （Reads ID可省略）</td>
+</tr>
+<tr align="center" >
+
+<td class="tailsingle1">4</td>
+
+<td class="tailsingle1">碱基质量</td>
+</tr></table><p class="pbold">FASTA格式</p>
+<p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FASTA格式（又称为Pearson格式），是一种基于文本用于表示核苷酸序列或氨基酸序列的格式。在这种格式中碱基对或氨基酸用单个字母来编码，且允许在序列前添加序列名及注释。序列文件的第一行是由大于号">"或分号";"打头的任意文字说明（习惯常用">"作为起始），用于序列标记。从第二行开始为序列本身，只允许使用既定的核苷酸或氨基酸编码符号。通常核苷酸符号大小写均可，而氨基酸常用大写字母。如：</p>
+<p class="pfasta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;>scaffold1 35.9<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AACTCCAAATGTTTTACATCCTTTTTTTATCCATAATATATAATCAACTGATATACAAAATGAAAAAATACTACCTACATTTTTATTAGGCTTATTTTATTAAAATAAGGTTGGTGTTGTGGAAATAGCCATTCT</p>
+<h2><p id="p4.6" class="p2">4.6分析结果文件列表</p></h2>
+<p class="plist">|-- Large project number_subproject code<br>                        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- Abstract</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- assembly.xls											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[组装结果统计文件]</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- hiseqcleandata.xls											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Hiseq 数据统计文件]</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--Separate/<br>                        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--Sample name/</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--1.Cleandata/  									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[过滤后的数据]</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--*_Clean.1.fq.gz 	 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Hiseq Cleandata read1文件]<br>                        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--*_Clean.2.fq.gz	   							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Hiseq Cleandata read2文件]<br>                        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--*_Clean.base.png	   							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Hiseq reads处理后碱基分布图]<br>			|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--*_Clean.qual.png	   							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Hiseq reads处理后碱基质量分布图]<br>			|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--*.Hiseq_Cleandata.xls							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Hiseq Clean data 统计文件]</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--2.Assembly/   									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[基因组组装结果]</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--*.genome.fa									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[组装结果序列文件]</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--*.ass_stat.xls								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[组装结果统计文件]</p>
+<p class="plist">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- ncRNA_finding/							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[非编码RNA的预测结果]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--*.ncRNA.stat.xls									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[非编码RNA的预测结果统计]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.tRNA  										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[tRNAscan的初始预测结果]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.tRNA.gff  									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[tRNA预测结果的GFF3格式文件]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.tRNA.structure  								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[tRNA的二级结构文件]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.denovo.rRNA.fa  								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[rRNAmmer预测得到的rRNA的序列]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.denovo.rRNA.gff  								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[rRNAmmer预测得到的rRNA的gff3格式文件]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.homology.rRNA.tab  							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[同源比对预测rRNA得到的Blast比对结果]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.homology.rRNA.gff   							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[同源比对预测rRNA得到的gff3格式文件]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.sRNA.cmsearch.all.gff  						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[sRNA预测得到的原始结果]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.sRNA.cmsearch.confident.gff  					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[sRNA预测根据阈值筛选后得到的结果]<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- *.sRNA.cmsearch.confident.nr.gff  					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[sRNA去冗余后的最终结果]</p>
+</body></html>

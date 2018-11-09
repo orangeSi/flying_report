@@ -1,0 +1,4 @@
+Sample Name	Polymerase Reads Number(#)	Polymerase Reads Mean Length(bp)	Polymerase Reads Bases(bp)	Polymerase Reads Quality(#)	Subreads Number(#)	Subreads Mean Length(bp)	Subreads Bases(bp)	Subreads Quality(#)	Utilization Ratio(%)
+630601	35,181	13,774	646,150,006	0.87	65,585	7,367	483,197,338	0.87	0.76
+lmg005	46,589	14,324	896,562,890	0.87	90,504	7,356	665,788,910	0.87	0.76
+22200124	33,498	12,337	531,548,419	0.87	59,793	6,890	412,008,082	0.87	0.79

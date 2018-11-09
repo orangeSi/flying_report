@@ -1,0 +1,13 @@
+列数	说明
+1	query名
+2	subject名
+3	identity
+4	比对长度
+5	错配数
+6	空位数
+7	query比对起始坐标
+8	query比对终止坐标
+9	subject比对起始坐标
+10	subject比对终止坐标
+11	期望值
+12	比对得分
