@@ -2,7 +2,8 @@
 =head1 Name
 	ilikeorangeapple@gmail.com or https://github.com/orangeSi
 =head1 Useage
-	perl generate_report.pl
+	convert document to html file
+	perl fly.pl
 				 --configdir 	<str> config dir
 				 --resultdir   	<str> result dir
 				 --outputdir  	<str> outdir
@@ -11,6 +12,7 @@
 
 use Getopt::Long;
 use Switch;
+use FindBin qw($Bin);
 use File::Basename qw(basename dirname);
 
 my ($Step,$rdir,$odir);
@@ -23,7 +25,7 @@ GetOptions(
 if(!$configdir or !$rdir or !$odir){
 	die `pod2text $0`;
 }
-`mkdir -p $odir/html && mkdir -p $odir/html/css && mkdir -p $odir/html/png && cp base.css $odir/html/css`;
+`mkdir -p $odir/html && mkdir -p $odir/html/css && mkdir -p $odir/html/png && cp $Bin/base.css $odir/html/css`;
 my $html;
 open HTML,">$odir/html/report.html" or die "$!";
 #my @samples=glob("$rdir/Separate/*");
@@ -248,12 +250,13 @@ sub lovefree{
 					case "pintro"		{$tmp.="<p class=\"pintro\">$value</p>\n"}##
 					case "table"		{my %table=&gethash("$tmp_dir/$value");$tmp.=&generate_table(\%table);$/="ilikeorange"}
 					case "tabledetail"  	{$tmp.=&gettabledetail($value);}
-					case "pngdetail"	{$value=~ s/^/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/;$tmp.="<p class=\"pngdetail\">$value</p>\n"}##
+					#case "pngdetail"	{$value=~ s/^/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/;$tmp.="<p class=\"pngdetail\">$value</p>\n"}##
+					case "pngdetail"	{$value=~ s/^/&nbsp;&nbsp;/;$value=~ s/\\n/<br>&nbsp;&nbsp;/g;$tmp.="<p class=\"pngdetail\">$value</p>\n"}##
 					case "pngs"		{
 						#       pngs 			1	2	Separate/xxxx/1.Cleandata/*{base,qual}.png
 						#       pngs                    0       xx.png									
 						my $pngs_tmp=&getpngs($value);
-						if(!$pngs_tmp){print "warn: $value is not exists in $p\n";$pngs_tmp=""}
+						if(!$pngs_tmp){print "skip: $value is not exists in $p\n";$pngs_tmp=""}
 						$tmp.=$pngs_tmp;
 					}
 					#case "SNP"          	{$tmp.=&getsnp($value);$/="ilikeorange";}
@@ -380,9 +383,9 @@ sub getpngs(){
 			if($?){next}
 			if($sample_index >$limit_disply){
 #												$tmp.="<p class=\"pbold\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;样品名 $xx:<br>"
-				$tmp.="<p class=\"pngdetail\">注：其余样品图片见相应目录</p>";last;
+				$tmp.="<p class=\"pngdetail\" align=\"center\">注：其余样品图片见相应目录</p>";last;
 			}else{
-				$tmp.="<p class=\"pbold\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;样品名 $xx:</p>";
+				$tmp.="<p class=\"pbold\" align=\"center\">$xx</p><br>";
 			}
 
 			#print "xx is$xx;is $tmpxx;\n";

@@ -6,24 +6,24 @@
 <p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提取基因组DNA并随机打断，电泳回收所需长度的DNA片断，并加上接头进行cluster制备，最后上机测序。下面为建库方法和测序流程的详细描述。</p>
 
 <p class="img"  align="center" ><img src="png/illuminate_lib_piple.png" width="70%" title="png/illuminate_lib_piple.png" /></p><br>
-<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图2-1 实验流程 DNA样品被接收后，对样品进行检测；然后用检测合格的样品构建文库：首先采用超声法Covaris或者Bioruptor将大片段DNA(如基因组DNA、BAC或长片段PCR产物)随机打断并产生某长度DNA片段，然后用T4 DNA Polymerase、Klenow DNA Polymerase和T4 PNK将打断形成的粘性末端修复成平末端，再通过3' 端加碱基“A”，使得DNA片段能与3' 端带有“T”碱基的特殊接头连接，用电泳法选择需回收的目的片段连接产物，再使用PCR技术扩增两端带有接头的DNA片段；最后，用合格的文库进行cluster制备和测序</p>
+<p class="pngdetail">&nbsp;&nbsp;图2-1 实验流程 DNA样品被接收后，对样品进行检测；然后用检测合格的样品构建文库：首先采用超声法Covaris或者Bioruptor将大片段DNA(如基因组DNA、BAC或长片段PCR产物)随机打断并产生某长度DNA片段，然后用T4 DNA Polymerase、Klenow DNA Polymerase和T4 PNK将打断形成的粘性末端修复成平末端，再通过3' 端加碱基“A”，使得DNA片段能与3' 端带有“T”碱基的特殊接头连接，用电泳法选择需回收的目的片段连接产物，再使用PCR技术扩增两端带有接头的DNA片段；最后，用合格的文库进行cluster制备和测序</p>
 <h3><p id="p2.2.2" class="p3">2.2.2 Pacbio RSII平台</p></h3>
 <p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验过程中每个步骤（如样品检测、文库构建、测序等）都将影响数据的质量和数量，进而直接影响信息分析结果。为了得到高度可信的测序数据，我们在实验的每个步骤进行严格的质量控制。文库准备方法、测序过程如下图2：</p>
 
 <p class="img"  align="center" ><img src="png/pacbio_lib_piple.png" width="70%" title="png/pacbio_lib_piple.png" /></p><br>
-<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Figure 2-2 PacBio experimental process. Pipeline of PacBio experiment. DNA is treated into fragments with proper size by g-TUBE at first. Then the fragments are damage repaired and ends repaired. Both sides of DNA fragments are respectively connected with hairpin adapter to get a dumbbell (set of horse ring) structure, which is known as SMRTbell. After annealing, the SMRTbell is fixed at the bottom of the ZWM polymerase, it will be used for sequencing at last.</p>
+<p class="pngdetail">&nbsp;&nbsp;Figure 2-2 PacBio experimental process. Pipeline of PacBio experiment. DNA is treated into fragments with proper size by g-TUBE at first. Then the fragments are damage repaired and ends repaired. Both sides of DNA fragments are respectively connected with hairpin adapter to get a dumbbell (set of horse ring) structure, which is known as SMRTbell. After annealing, the SMRTbell is fixed at the bottom of the ZWM polymerase, it will be used for sequencing at last.</p>
 <h2><p id="p2.3" class="p2">2.3信息分析简介</p></h2>
 <h3><p id="p2.3.1" class="p3">2.3.1细菌完成图组装分析说明</p></h3>
 <p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;细菌完成图组装分为基因组检测、完成图组装两个过程，分析流程详细如下图所示。</p>
 
 <p class="img"  align="center" ><img src="png/assembly_piple.png" width="70%" title="png/assembly_piple.png" /></p><br>
-<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图2-3 细菌完成图分析流程图</p>
+<p class="pngdetail">&nbsp;&nbsp;图2-3 细菌完成图分析流程图</p>
 <p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（1）基因组检测：此阶段目的在于通过生物信息方法快速地获得目标菌株的基因组信息和样品情况，包括目标菌株的基因组大小、GC含量、重复序列情况、质粒情况、非一致序列情况等信息。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（2）完成图组装：此阶段就是把目标菌株的基因组序列完整的组装出来，即达到完成图水平。基于目标菌株基因组的复杂性，可能需要使用多种平台数据和多种组装软件对序列进行组装和优化。</p>
 <h3><p id="p2.3.2" class="p3">2.3.2菌株生物信息分析说明</p></h3>
 <p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于组装结果进行信息分析。下面为信息分析内容的详细描述。</p>
 
 <p class="img"  align="center" ><img src="png/anaysis_piple.png" width="70%" title="png/anaysis_piple.png" /></p><br>
-<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图2-4 信息分析流程图 (1)基因组组分分析，包括(a)重复序列分析：包括串联重复序列以及小卫星序列、微卫星序列分析；(b)CRISPR预测；(c)非编码RNA预测：包括rRNA、tRNA和sRNA；(d)基因岛预测；(e)前噬菌体预测；(f)基因成分；(2)基因功能分析，包括(a)通用功能注释：使用GO、KEGG和Swiss-Prot，以及NR和COG数据库对预测获得的ORF区域进行功能注释；(b)动物病原菌致病性和耐药性分析：包括三型分泌系统效应蛋白预测，PHI、VFDB、ARDB数据库注释；(c)植物病原菌致病性分析：包括三型分泌系统效应蛋白预测，CAZy、PHI数据库注释；(3)比较基因组分析，包括 (a)结构变异（共线性分析）；(b)共有基因和特有基因分析；(c)物种进化分析，包括构建系统进化树；(d)基因家族分析；(4)撰写结题报告。</p>
+<p class="pngdetail">&nbsp;&nbsp;图2-4 信息分析流程图 (1)基因组组分分析，包括(a)重复序列分析：包括串联重复序列以及小卫星序列、微卫星序列分析；(b)CRISPR预测；(c)非编码RNA预测：包括rRNA、tRNA和sRNA；(d)基因岛预测；(e)前噬菌体预测；(f)基因成分；(2)基因功能分析，包括(a)通用功能注释：使用GO、KEGG和Swiss-Prot，以及NR和COG数据库对预测获得的ORF区域进行功能注释；(b)动物病原菌致病性和耐药性分析：包括三型分泌系统效应蛋白预测，PHI、VFDB、ARDB数据库注释；(c)植物病原菌致病性分析：包括三型分泌系统效应蛋白预测，CAZy、PHI数据库注释；(3)比较基因组分析，包括 (a)结构变异（共线性分析）；(b)共有基因和特有基因分析；(c)物种进化分析，包括构建系统进化树；(d)基因家族分析；(4)撰写结题报告。</p>
 <h1><p id="p3" class="p">3信息分析结果</p></h1>
 <h2><p id="p3.1" class="p2">3.1 数据概况</p></h2>
 <h3><p id="p3.1.1" class="p3">3.1.1 Illumina Hiseq 4000平台数据</p></h3>
@@ -164,7 +164,7 @@
 <h3><p id="p4.1.2" class="p3">4.1.2 基因组组装</p></h3>
 <h4><p id="p4.1.2.1" class="p4">4.1.2.1完成图组装</p></h4>
 <p class="pcontent">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成图序列的组装主要基于Pacbio RSII 数据与Illumina Hiseq 4000数据，采用各种基因组组装软件分析，组装出样品中主要的完整的连续的contig，然后在基于得到的contig做单碱基纠正、成环判断等分析，最终得到可信的完成图序列或是染色体水平的contig序列，具体步骤如下：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（1）初步组装评估基因组：使用多种短序列组装软件对处理后的Illumina Hiseq 4000 reads数据进行组装，初步检测基因组大小、GC含量、重复序列情况、质粒情况、非一致序列情况等信息。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（2）Pacbio RSII数据组装构建基本骨架：使用SMRT Analysis v2.3.0 流程中的RS_HGAP Assembly3组装基因组。并且判断是否完整的连续的组装出基因组主要的contig，如果没有组装出主要的contig，将借助Illumina Hiseq 4000数据与Pacbio RSII数据混合组装，进一步纠正Subreads、优化参数等，直到组装出基因组主要的contig。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（3）Contig碱基纠正：利用两轮分析方法对contig进行单碱基纠错。第一轮纠错方法利用Illumina Hiseq 4000数据，采用soapSNP与soapIndel软件对得到的contig进行第一轮纠错分析；第二轮纠错方法也是基于Illumina Hiseq 4000数据，然后采用GATK分析流程来进行纠错分析。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（4）Contig成环处理：采用多种方法判断Contig是否成环，第一种首先判断Contig两端是否已经有overlap，如果有overlap进一步验证成环区域是否可信；第二种采用SSPACE- LongRead软件基于Pacbio RSII数据中Subreads或corrected reads来判断是否成环；第三种如果样品存在比较近源的基因组，可以利用参考序列辅助判断是否成环。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（5）完成图判断：如果Contig判断成环将得到完成图水平的完整序列，如果Contig判断不成环并且已验证物种基因组为环形将只能得到染色体水平完整序列，最后对完整序列做评估分析。</p>
-<p class="pngdetail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组装结果统计示例：</p>
+<p class="pngdetail">&nbsp;&nbsp;组装结果统计示例：</p>
 <table align="center" width="auto" cellspacing="0" style="word-break:break-all">
 <tr bgcolor="orange" align="center" >
 
