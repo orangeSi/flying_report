@@ -5,6 +5,7 @@
 set -vex
 
 export PERL5LIB=$PWD/../:$PERL5LIB
+export PATH=$PWD/..:$PATH
 base=$PWD
 /usr/bin/perl5.16.3 ../fly.pl --configdir config/ --resultdir result --outputdir $base/outdir
 sh ../html2pdf.sh  outdir/html/report.html  cn outdir/html/report.pdf
